@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>OneCode+ Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#062240;--bg2:#0a2d52;--bg3:#041a31;--mute:#9fb6cf;--line:rgba(255,255,255,.15);--sky:#6db3ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#fff;font-family:Outfit,system-ui,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+.btn{border:0;cursor:pointer;font-weight:500;padding:11px 24px;border-radius:99px;background:#fff;color:var(--bg)}
+.btn.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
+.btn.danger{background:transparent;color:#ff8a8a;border:1px solid rgba(255,138,138,.4);padding:7px 16px}
+.hide{display:none!important}
+#login{min-height:100vh;display:grid;place-items:center;padding:24px}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:36px;width:100%;max-width:380px;text-align:center}
+.box h1{margin:0 0 6px;font-size:1.6rem}
+.box p{color:var(--mute);margin:0 0 22px}
+.box input{width:100%;background:var(--bg3);border:1px solid var(--line);color:#fff;padding:13px 18px;border-radius:14px;margin-bottom:14px}
+.box input:focus,select:focus,.search:focus{outline:2px solid var(--sky)}
+.err{color:#ff8a8a;min-height:1.4em;margin-top:12px;font-size:.95rem}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--line);background:var(--bg3)}
+header b{font-size:1.2rem}
+main{max-width:1100px;margin:0 auto;padding:28px 24px 60px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px}
+.stat{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:20px}
+.stat b{display:block;font-size:2rem;font-weight:600;line-height:1.1}
+.stat small{color:var(--mute)}
+.tools{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.search{flex:1;min-width:220px;background:var(--bg2);border:1px solid var(--line);color:#fff;padding:12px 18px;border-radius:99px}
+.wrapT{overflow-x:auto;background:var(--bg2);border:1px solid var(--line);border-radius:18px}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:.95rem}
+th{color:var(--mute);font-weight:500;font-size:.85rem}
+tr:last-child td{border-bottom:0}
+select{background:var(--bg3);color:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px}
+.empty{padding:40px;text-align:center;color:var(--mute)}
+@media(max-width:720px){.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <form class="box" id="loginForm">
+    <h1>OneCode+ Dashboard</h1>
+    <p>Enter your admin password</p>
+    <input type="password" id="pw" placeholder="Password" autocomplete="current-password" required>
+    <button class="btn" type="submit" style="width:100%">Log in</button>
+    <div class="err" id="loginErr" role="alert"></div>
+  </form>
+</div>
+
+<div id="app" class="hide">
+  <header>
+    <b>OneCode+ Dashboard</b>
+    <div><button class="btn ghost" id="refresh">Refresh</button> <button class="btn ghost" id="logout">Log out</button></div>
+  </header>
+  <main>
+    <div class="cards">
+      <div class="stat"><b id="sTotal">0</b><small>Total orders</small></div>
+      <div class="stat"><b id="sNew">0</b><small>New</small></div>
+      <div class="stat"><b id="sProg">0</b><small>In progress</small></div>
+      <div class="stat"><b id="sDone">0</b><small>Done</small></div>
+    </div>
+    <div class="tools">
+      <input class="search" id="q" placeholder="Search by name, email, phone or company">
+      <select id="filter"><option value="">All statuses</option><option value="new">New</option><option value="in progress">In progress</option><option value="done">Done</option></select>
+    </div>
+    <div class="wrapT">
+      <table>
+        <thead><tr><th>Date</th><th>Full name</th><th>Email</th><th>Phone</th><th>Company</th><th>Status</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty hide" id="empty">No orders found.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+var token = sessionStorage.getItem('token') || '';
+var orders = [];
+var $ = function(id){ return document.getElementById(id); };
+
+function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({'Content-Type':'application/json','x-token':token}, opts.headers || {});
+  return fetch(path, opts).then(function(r){
+    if(r.status === 401 && path.indexOf('/login') === -1){ logout(); throw new Error('auth'); }
+    return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || 'Error'); return j; });
+  });
+}
+
+function show(){
+  $('login').classList.toggle('hide', !!token);
+  $('app').classList.toggle('hide', !token);
+  if(token) load();
+}
+
+function logout(){ token = ''; sessionStorage.removeItem('token'); show(); }
+
+$('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  $('loginErr').textContent = '';
+  api('/api/admin/login', {method:'POST', body:JSON.stringify({password:$('pw').value})})
+    .then(function(j){ token = j.token; sessionStorage.setItem('token', token); $('pw').value = ''; show(); })
+    .catch(function(err){ $('loginErr').textContent = err.message; });
+});
+
+$('logout').addEventListener('click', logout);
+$('refresh').addEventListener('click', load);
+$('q').addEventListener('input', render);
+$('filter').addEventListener('change', render);
+
+function load(){
+  api('/api/admin/orders').then(function(data){ orders = data; render(); }).catch(function(){});
+}
+
+function render(){
+  var q = $('q').value.toLowerCase(), f = $('filter').value;
+  $('sTotal').textContent = orders.length;
+  $('sNew').textContent = orders.filter(function(o){return o.status==='new'}).length;
+  $('sProg').textContent = orders.filter(function(o){return o.status==='in progress'}).length;
+  $('sDone').textContent = orders.filter(function(o){return o.status==='done'}).length;
+
+  var list = orders.filter(function(o){
+    var hay = [o.full_name,o.email,o.phone,o.company].join(' ').toLowerCase();
+    return hay.indexOf(q) > -1 && (!f || o.status === f);
+  });
+
+  var tb = $('rows'); tb.innerHTML = '';
+  $('empty').classList.toggle('hide', list.length > 0);
+
+  list.forEach(function(o){
+    var tr = document.createElement('tr');
+    [new Date(o.created_at).toLocaleString(), o.full_name, o.email, o.phone || '-', o.company || '-'].forEach(function(t){
+      var td = document.createElement('td'); td.textContent = t; tr.appendChild(td);
+    });
+
+    var tdS = document.createElement('td'), sel = document.createElement('select');
+    ['new','in progress','done'].forEach(function(s){
+      var op = document.createElement('option'); op.value = s; op.textContent = s; if(o.status === s) op.selected = true; sel.appendChild(op);
+    });
+    sel.addEventListener('change', function(){
+      api('/api/admin/orders/' + o.id, {method:'PATCH', body:JSON.stringify({status:sel.value})}).then(load).catch(function(e){ alert(e.message); });
+    });
+    tdS.appendChild(sel); tr.appendChild(tdS);
+
+    var tdD = document.createElement('td'), del = document.createElement('button');
+    del.className = 'btn danger'; del.textContent = 'Delete';
+    del.addEventListener('click', function(){
+      if(confirm('Delete the order of ' + o.full_name + '?')){
+        api('/api/admin/orders/' + o.id, {method:'DELETE'}).then(load).catch(function(e){ alert(e.message); });
+      }
+    });
+    tdD.appendChild(del); tr.appendChild(tdD);
+
+    tb.appendChild(tr);
+  });
+}
+
+show();
+</script>
+</body>
+</html>
