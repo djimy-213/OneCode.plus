@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
@@ -10,6 +11,17 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SER
 const sessions = new Map();
 
 app.use(express.json());
+
+// Serve the homepage with the small visual overrides without changing its inline styles.
+app.get(['/', '/index.html'], async (req, res, next) => {
+  try {
+    const html = await fs.promises.readFile(path.join(__dirname, 'public', 'index.html'), 'utf8');
+    res.type('html').send(html.replace('</head>', '  <link rel="stylesheet" href="/overrides.css">\n</head>'));
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/libs/gsap', express.static(path.join(__dirname, 'node_modules/gsap/dist')));
 app.use('/libs/motion', express.static(path.join(__dirname, 'node_modules/motion/dist')));
