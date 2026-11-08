@@ -12,11 +12,15 @@ const sessions = new Map();
 
 app.use(express.json());
 
-// Serve the homepage with the small visual overrides without changing its inline styles.
+// Add the hero-only atmosphere and visual overrides when serving the homepage.
 app.get(['/', '/index.html'], async (req, res, next) => {
   try {
     const html = await fs.promises.readFile(path.join(__dirname, 'public', 'index.html'), 'utf8');
-    res.type('html').send(html.replace('</head>', '  <link rel="stylesheet" href="/overrides.css">\n</head>'));
+    const withHeroAtmosphere = html.replace(
+      '<header class="frame" id="top">',
+      '<header class="frame" id="top">\n<div class="hero-atmosphere" aria-hidden="true"></div>'
+    );
+    res.type('html').send(withHeroAtmosphere.replace('</head>', '  <link rel="stylesheet" href="/overrides.css">\n</head>'));
   } catch (error) {
     next(error);
   }
