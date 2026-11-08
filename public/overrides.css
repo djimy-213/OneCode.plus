@@ -1,25 +1,14 @@
-/* Keep the main navigation centered across the hero and pinned near the top edge. */
+/* Keep the primary navigation flush with the top edge of the viewport. */
 nav {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 8px);
-  left: 50%;
-  right: auto;
-  width: min(1360px, calc(100% - 48px));
-  min-height: 68px;
-  padding: 8px 12px;
-  transform: translateX(-50%);
-  border: 1px solid rgba(255, 255, 255, .2);
-  border-radius: 22px;
-  background: rgba(4, 26, 49, .62);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, .2);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  top: env(safe-area-inset-top, 0px);
+  left: 0;
+  right: 0;
+  padding: 10px 40px;
 }
 
-/* Keep the logo itself clean, without a separate circular/glass badge. */
+/* Let the brand mark stand on its own instead of placing it inside a glass pill. */
 nav .brand.gl {
-  flex: 0 0 auto;
-  padding: 8px 10px;
+  padding-left: 0;
   background: transparent;
   border-color: transparent;
   box-shadow: none;
@@ -27,155 +16,22 @@ nav .brand.gl {
   backdrop-filter: none;
 }
 
-nav .mpill.gl {
-  flex: 0 1 auto;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-nav .navbtn {
-  flex: 0 0 auto;
-}
-
-/* The top navigation replaces the old vertical icon rail. */
+/* Remove the duplicate circular logo rail; the top navigation is the main nav. */
 .sidepill {
   display: none;
 }
 
-/* The small logo in the hero callout is also displayed without its circular badge. */
+/* The small logo badge in the hero card should also be shown without a circle. */
 .cta2 .mk {
   background: transparent;
   border: 0;
   border-radius: 0;
 }
 
-/* Animated, softly drifting color fields inside the hero only. */
-.frame .hero-atmosphere {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: .8;
-}
-
-.frame .hero-atmosphere::before,
-.frame .hero-atmosphere::after {
-  content: "";
-  position: absolute;
-  width: min(58vw, 760px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  filter: blur(2px);
-  will-change: transform;
-}
-
-.frame .hero-atmosphere::before {
-  top: -34%;
-  right: -12%;
-  background: radial-gradient(circle, rgba(109, 179, 255, .27) 0%, rgba(47, 107, 255, .12) 36%, transparent 72%);
-  animation: hero-drift-one 18s ease-in-out infinite alternate;
-}
-
-.frame .hero-atmosphere::after {
-  left: 14%;
-  bottom: -62%;
-  background: radial-gradient(circle, rgba(87, 155, 255, .22) 0%, rgba(44, 104, 210, .1) 40%, transparent 72%);
-  animation: hero-drift-two 22s ease-in-out infinite alternate;
-}
-
-.frame .hin,
-.frame .vlist {
-  z-index: 1;
-}
-
-@keyframes hero-drift-one {
-  from { transform: translate3d(-4%, 0, 0) scale(.92); }
-  to { transform: translate3d(5%, 8%, 0) scale(1.08); }
-}
-
-@keyframes hero-drift-two {
-  from { transform: translate3d(3%, -4%, 0) scale(1.04); }
-  to { transform: translate3d(-6%, 3%, 0) scale(.94); }
-}
-
 @media (max-width: 860px) {
   nav {
-    left: 50%;
-    right: auto;
-    width: calc(100% - 24px);
-    min-height: 58px;
-    padding: 5px 7px;
-    gap: 4px;
-  }
-
-  nav .mpill {
-    display: flex;
-    gap: 0;
-    padding: 2px;
-  }
-
-  nav .mpill a {
-    padding: 9px 8px;
-    font-size: .76rem;
-  }
-
-  nav .brand.gl {
-    gap: 6px;
-    padding: 6px 4px;
-    font-size: 1rem;
-  }
-
-  nav .brand svg {
-    width: 30px;
-  }
-
-  nav .navbtn {
-    gap: 6px;
-    padding: 4px 5px 4px 12px;
-    font-size: .78rem;
-  }
-
-  nav .navbtn i {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-@media (max-width: 520px) {
-  nav {
-    gap: 2px;
-    padding-inline: 5px;
-  }
-
-  nav .mpill a {
-    padding: 8px 5px;
-    font-size: .68rem;
-  }
-
-  nav .navbtn {
-    padding: 4px;
-  }
-
-  nav .navbtn > span {
-    display: none;
-  }
-
-  nav .brand.gl {
-    padding-inline: 2px;
-  }
-
-  .frame .hero-atmosphere {
-    opacity: .62;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .frame .hero-atmosphere::before,
-  .frame .hero-atmosphere::after {
-    animation: none;
+    left: 0;
+    right: 0;
+    padding: 8px 14px;
   }
 }
