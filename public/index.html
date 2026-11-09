@@ -20,11 +20,11 @@ button{font:inherit;color:inherit}
 .btn.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
 svg{display:block}
 
-/* NAV (stuck at the top of the hero page, scrolls away with it) */
-nav{position:absolute;top:calc(env(safe-area-inset-top,0px) + 32px);left:44px;right:44px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px}
+/* NAV (inside the hero frame, stuck at the very top, scrolls away with the hero) */
+nav{position:absolute;top:18px;left:34px;right:34px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .gl{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.22);box-shadow:0 18px 40px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem;padding:8px 20px 8px 14px;border-radius:99px}
-.brand svg{width:36px;height:auto}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;background:none;border:0;box-shadow:none;padding:0}
+.brand svg{width:40px;height:auto}
 .mpill{display:flex;gap:4px;padding:6px;border-radius:99px}
 .mpill a{padding:10px 24px;border-radius:99px;font-size:.92rem;color:rgba(255,255,255,.8);transition:background .25s,color .25s}
 .mpill a:hover{color:#fff}
@@ -46,7 +46,7 @@ nav{position:absolute;top:calc(env(safe-area-inset-top,0px) + 32px);left:44px;ri
 /* HERO FRAME */
 .frame{position:relative;margin:14px;min-height:calc(100vh - 28px);border-radius:38px;overflow:hidden;border:1px solid rgba(255,255,255,.18);background:var(--bg);isolation:isolate}
 .bgart{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
-.hin{position:relative;min-height:calc(100vh - 28px);padding:118px 56px 34px 140px;display:flex;flex-direction:column;gap:26px}
+.hin{position:relative;min-height:calc(100vh - 28px);padding:112px 56px 34px 140px;display:flex;flex-direction:column;gap:26px}
 .htop{flex:1;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:30px}
 .eyebrow{font-size:.7rem;letter-spacing:.32em;color:rgba(255,255,255,.78);margin:0 0 18px}
 h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(3rem,6.6vw,6rem);line-height:1;margin:0;letter-spacing:-.01em}
@@ -61,7 +61,7 @@ h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clam
 .circ svg{stroke:#fff}
 .orbit{justify-self:center;display:grid;place-items:center;width:min(28vw,320px)}
 .logo-big{width:100%;height:auto;color:#fff;filter:drop-shadow(0 0 30px rgba(109,179,255,.55))}
-.vlist{position:absolute;right:36px;top:120px;padding-left:14px;border-left:1px solid rgba(255,255,255,.4);font-size:.66rem;letter-spacing:.22em;line-height:1.9;color:rgba(255,255,255,.85)}
+.vlist{position:absolute;right:36px;top:34%;padding-left:14px;border-left:1px solid rgba(255,255,255,.4);font-size:.66rem;letter-spacing:.22em;line-height:1.9;color:rgba(255,255,255,.85)}
 .hrow{display:grid;grid-template-columns:1.3fr 1fr .8fr;gap:18px}
 .hrow>.gl{border-radius:30px;padding:18px}
 .lab{display:block;font-size:.62rem;letter-spacing:.24em;color:rgba(255,255,255,.7);margin-bottom:6px}
@@ -176,13 +176,13 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 }
 @media(max-width:1000px){
 .sidepill,.vlist,.orbit{display:none}
-.hin{padding:108px 22px 24px;min-height:0}
+.hin{padding:100px 22px 24px;min-height:0}
 .htop{grid-template-columns:1fr}
 .hrow{grid-template-columns:1fr}
 .frame{min-height:0}
 }
 @media(max-width:860px){
-nav{left:28px;right:28px}.mpill{display:none}
+nav{left:20px;right:20px}.mpill{display:none}
 .steps{grid-template-columns:1fr 1fr}.line{display:none}
 .cgrid{grid-template-columns:1fr;gap:40px}.contact{min-height:auto}.fiche{justify-self:stretch;max-width:none}
 .work{height:auto;min-height:100vh}
@@ -193,19 +193,13 @@ nav{left:28px;right:28px}.mpill{display:none}
 .wbar{flex-wrap:wrap;justify-content:center}
 .wline{white-space:normal}
 }
-@media(max-width:520px){.brand span.t{display:none}.feat{grid-template-columns:1fr}.ftile{height:90px}.steps{grid-template-columns:1fr}.fld input{height:60px;padding-left:66px;border-radius:26px}.fld svg{left:22px}.send{height:60px}.socials{grid-template-columns:repeat(3,54px)}.wc:nth-child(3){display:none}.scrollbtn span{display:none}}
+@media(max-width:520px){.feat{grid-template-columns:1fr}.ftile{height:90px}.steps{grid-template-columns:1fr}.fld input{height:60px;padding-left:66px;border-radius:26px}.fld svg{left:22px}.send{height:60px}.socials{grid-template-columns:repeat(3,54px)}.wc:nth-child(3){display:none}.scrollbtn span{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
 <canvas id="fx"></canvas>
 <svg width="0" height="0" style="position:absolute"><symbol id="lg" viewBox="113 580 720 505"><g fill="currentColor"><polygon class="p1" points="113,840 268,720 317,722 317,752 200,842 305,923 275,950 250,950"/><polygon class="p2" points="833,845 688,727 650,755 752,843 652,917 652,950 697,950"/><polygon class="p3" points="383,688 602,582 602,727 475,810 475,716 383,757"/><polygon class="p3" points="520,800 595,775 595,992 468,1085 470,880"/><path class="p4" d="M221 1047 L710 678 C640 740 560 800 470 878 Z"/></g></symbol></svg>
-
-<nav>
-<a class="brand gl" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
-<div class="mpill gl"><a href="#top" class="on">Home</a><a href="#services">My Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
-<a class="navbtn" href="#contact"><span>Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-</nav>
 
 <div class="sidepill gl">
 <a href="#top" class="on" title="Home"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10"/></svg></a>
@@ -216,6 +210,13 @@ nav{left:28px;right:28px}.mpill{display:none}
 </div>
 
 <header class="frame" id="top">
+
+<nav>
+<a class="brand" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
+<div class="mpill gl"><a href="#top" class="on">Home</a><a href="#services">My Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
+<a class="navbtn" href="#contact"><span>Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+</nav>
+
 <svg class="bgart" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
 <defs>
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#041a31"/><stop offset=".5" stop-color="#0d3a73"/><stop offset="1" stop-color="#4a8fe8"/></linearGradient>
