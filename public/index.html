@@ -90,39 +90,23 @@ h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clam
 section{padding:90px 0}
 h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:600;text-align:center;margin:0 0 50px;letter-spacing:-.02em}
 
-/* MY WORK (what we do) - full screen */
-.work{position:relative;height:100vh;min-height:620px;padding:64px 0 0;display:flex;flex-direction:column;overflow:hidden}
+/* MY WORK - FlexCarousel (full screen) */
+.work{position:relative;height:100vh;min-height:640px;padding:96px 0 0;display:flex;flex-direction:column;overflow:hidden}
 .wglow{position:absolute;right:-120px;top:18%;width:560px;height:560px;border-radius:50%;background:#2f6bff;opacity:.22;filter:blur(120px);pointer-events:none}
-.wmain{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center;width:100%;max-width:1200px;margin:0 auto;padding:20px 24px 10px 84px}
-.dots{position:absolute;left:30px;top:50%;transform:translateY(-50%);display:grid;gap:18px;justify-items:center}
-.dots::before{content:"";position:absolute;top:6px;bottom:6px;left:50%;width:2px;margin-left:-1px;background:rgba(255,255,255,.25)}
-.dot{position:relative;width:12px;height:12px;padding:0;border:0;border-radius:50%;background:#fff;cursor:pointer;transition:all .35s}
-.dot.on{width:30px;height:30px;margin:-9px 0;background:linear-gradient(135deg,#2f6bff,#1f3fd0);box-shadow:0 0 0 6px rgba(47,107,255,.28)}
-.wtext{min-width:0}
-.work .wtitle{font-size:clamp(2.6rem,6.2vw,5.4rem);font-weight:600;line-height:1.02;margin:0 0 18px;letter-spacing:-.03em;text-align:left}
-.wdesc{color:var(--mute);max-width:380px;margin:0 0 28px;font-size:1.05rem}
+.whead{position:relative;text-align:center;padding:0 24px}
+.work .wtitle{font-size:clamp(2.4rem,5.4vw,4.4rem);font-weight:600;line-height:1.05;margin:0 0 10px;letter-spacing:-.03em;text-align:center}
+.wdesc{color:var(--mute);max-width:520px;margin:0 auto;font-size:1.05rem}
+.wstage{position:relative;flex:1;min-height:360px;width:100%}
+.wmount{position:absolute;inset:0}
+.wfall{display:none;list-style:none;margin:0;padding:20px 24px;height:100%;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;overflow:auto}
+.wstage.fallback .wfall{display:flex}
+.wfall li{width:150px;text-align:center;font-size:.9rem}
+.wfall img{display:block;width:100%;height:auto;border-radius:18px;margin-bottom:8px}
+.wact{position:relative;display:flex;justify-content:center;padding:4px 24px 0}
 .wbtn{display:inline-flex;align-items:center;gap:14px;padding:14px 18px 14px 28px;border-radius:99px;font-weight:600;color:#fff;background:linear-gradient(90deg,#2f6bff,#1f3fd0);box-shadow:0 12px 30px rgba(47,107,255,.5),inset 0 1px 0 rgba(255,255,255,.35);transition:box-shadow .25s}
 .wbtn:hover{box-shadow:0 16px 38px rgba(47,107,255,.7),inset 0 1px 0 rgba(255,255,255,.35)}
 .wbtn i{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center}
 .wbtn svg,.arr svg,.go2 svg,.scrollbtn svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.wcards{display:flex;gap:16px;justify-content:flex-end;align-items:stretch;height:min(54vh,430px)}
-.wc{position:relative;flex:0 0 150px;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.28);cursor:pointer;padding:18px;display:flex;flex-direction:column;justify-content:flex-start;transition:flex-basis .5s,border-color .3s}
-.wc:hover{border-color:#fff}
-.wc.act{flex-basis:240px}
-.wc svg.art{position:absolute;right:-18px;bottom:46px;width:170px;height:170px;fill:none;stroke:rgba(255,255,255,.3);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
-.tag{position:relative;display:flex;gap:10px;align-items:center;font-size:.92rem;line-height:1.25}
-.tag b{width:30px;height:30px;border-radius:50%;background:#2f6bff;display:grid;place-items:center;font-size:.72rem;font-weight:600;flex:none}
-.tag small{display:block;color:rgba(255,255,255,.7);font-size:.8rem}
-.go2{position:absolute;right:16px;bottom:16px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);display:grid;place-items:center}
-.wbar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
-.scrollbtn{display:flex;align-items:center;gap:10px;background:none;border:0;color:var(--mute);font:inherit;font-size:.82rem;cursor:pointer}
-.scrollbtn i{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
-.arrows{display:flex;gap:12px}
-.arr{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(90deg,#2f6bff,#1f3fd0);box-shadow:0 10px 24px rgba(47,107,255,.5),inset 0 1px 0 rgba(255,255,255,.35);display:grid;place-items:center;transition:box-shadow .25s}
-.arr:hover{box-shadow:0 14px 30px rgba(47,107,255,.7),inset 0 1px 0 rgba(255,255,255,.35)}
-.count{display:flex;align-items:center;gap:12px;font-size:.9rem}
-.count .tr{position:relative;width:90px;height:2px;background:rgba(255,255,255,.25)}
-.count .tr i{position:absolute;left:0;top:0;height:100%;background:#fff;width:20%;transition:width .5s}
 .wline{font-size:clamp(.95rem,2.4vw,1.9rem);font-weight:500;text-align:center;padding:22px 24px 30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
@@ -165,8 +149,6 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 
 /* keep content clear of the fixed left bar */
 @media(min-width:1001px){
-.wmain{padding-left:170px}
-.dots{left:110px}
 #process .wrap,.cgrid{padding-left:max(24px,calc(110px - (100vw - 1100px)/2))}
 }
 @media(max-width:1000px){
@@ -180,17 +162,14 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 .topbar{padding:8px 8px 8px 18px}.mpill{display:none}
 .steps{grid-template-columns:1fr 1fr}.line{display:none}
 .cgrid{grid-template-columns:1fr;gap:40px}.contact{min-height:auto}.fiche{justify-self:stretch;max-width:none}
-.work{height:auto;min-height:100vh}
-.wmain{grid-template-columns:1fr;padding:30px 24px 10px 64px;gap:30px}
-.dots{left:24px}
-.wcards{justify-content:flex-start;height:300px}
-.wc{flex-basis:120px}.wc.act{flex-basis:200px}
-.wbar{flex-wrap:wrap;justify-content:center}
+.work{height:auto;min-height:100vh;padding-top:90px}
+.wstage{flex:none;height:440px}
 .wline{white-space:normal}
 }
-@media(max-width:520px){.feat{grid-template-columns:1fr}.ftile{height:90px}.steps{grid-template-columns:1fr}.fld input{height:60px;padding-left:66px;border-radius:26px}.fld svg{left:22px}.send{height:60px}.socials{grid-template-columns:repeat(3,54px)}.wc:nth-child(3){display:none}.scrollbtn span{display:none}}
+@media(max-width:520px){.feat{grid-template-columns:1fr}.ftile{height:90px}.steps{grid-template-columns:1fr}.fld input{height:60px;padding-left:66px;border-radius:26px}.fld svg{left:22px}.send{height:60px}.socials{grid-template-columns:repeat(3,54px)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
+<link rel="stylesheet" href="/flexcarousel.css">
 </head>
 <body>
 <canvas id="fx"></canvas>
@@ -232,25 +211,15 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 
 <section class="work" id="services">
 <div class="wglow"></div>
-<div class="wmain">
-<div class="dots" id="dots"></div>
-<div class="wtext">
-<h2 class="wtitle" id="wTitle">Web design</h2>
-<p class="wdesc" id="wDesc">Clean, memorable interfaces that explain what you do in seconds.</p>
-<a class="wbtn" id="wBtn" href="#contact">Get a quote <i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+<div class="whead">
+<h2 class="wtitle">My Work</h2>
+<p class="wdesc">Drag, scroll or click a card to explore what we build.</p>
 </div>
-<div class="wcards" id="wcards"></div>
-</div>
-<div class="wbar">
-<button class="scrollbtn" id="wScroll" type="button"><i><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i><span>Scroll to discover</span></button>
-<div class="arrows">
-<button class="arr" id="wPrev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-<button class="arr" id="wNext" type="button" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-</div>
-<div class="count"><b id="cn">01</b><span class="tr"><i id="ctr"></i></span><span>05</span></div>
-</div>
+<div class="wstage" id="workStage"><ul class="wfall"><li><img src="/work/web-design.svg" alt="Web design" loading="lazy"><span>Web design</span></li><li><img src="/work/web-development.svg" alt="Web development" loading="lazy"><span>Web development</span></li><li><img src="/work/e-commerce.svg" alt="E-commerce" loading="lazy"><span>E-commerce</span></li><li><img src="/work/mobile-apps.svg" alt="Mobile apps" loading="lazy"><span>Mobile apps</span></li><li><img src="/work/dashboards.svg" alt="Dashboards" loading="lazy"><span>Dashboards</span></li></ul></div>
+<div class="wact"><a class="wbtn" href="#contact">Get a quote <i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
 <div class="wline">Web design • Web development • E-commerce • Mobile apps • Dashboards</div>
 </section>
+<noscript><style>.wfall{display:flex!important}</style></noscript>
 
 <section id="process"><div class="wrap"><h2 class="rv">How we work</h2>
 <div class="steps"><div class="line"></div>
@@ -300,5 +269,6 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <script src="/libs/gsap/ScrollTrigger.min.js"></script>
 <script src="/libs/motion/motion.js"></script>
 <script src="/script.js"></script>
+<script type="module" src="/work-init.js"></script>
 </body>
 </html>
