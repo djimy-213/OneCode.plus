@@ -34,14 +34,6 @@ nav{position:absolute;top:6px;left:26px;right:26px;z-index:20;display:flex;align
 .navbtn i,.hbtn i{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center}
 .navbtn i svg,.hbtn i svg,.circ svg,.fnav button svg,.cta2 .go3 svg{width:18px;height:18px;fill:none;stroke:var(--bg);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
-/* LEFT ICON BAR (follows while scrolling) */
-.sidepill{position:fixed;left:24px;top:50%;translate:0 -50%;z-index:15;display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px 10px;border-radius:99px}
-.sidepill a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:rgba(255,255,255,.85);transition:background .25s,color .25s}
-.sidepill a:hover{background:rgba(255,255,255,.18)}
-.sidepill a.on{background:#fff;color:var(--bg)}
-.sidepill svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.sidepill .mark{width:44px;height:44px;border-radius:50%;margin-top:8px;display:grid;place-items:center;background:linear-gradient(145deg,#12396a,#0a2d52);border:1px solid rgba(255,255,255,.3)}
-.sidepill .mark svg{width:24px;height:17px;fill:#fff;stroke:none}
 
 /* HERO FRAME */
 .frame{position:relative;margin:14px;min-height:calc(100vh - 28px);border-radius:38px;overflow:hidden;border:1px solid rgba(255,255,255,.18);background:var(--bg);isolation:isolate}
@@ -175,7 +167,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 #process .wrap,.cgrid{padding-left:max(24px,calc(110px - (100vw - 1100px)/2))}
 }
 @media(max-width:1000px){
-.sidepill,.vlist,.orbit{display:none}
+.vlist,.orbit{display:none}
 .hin{padding:84px 22px 24px;min-height:0}
 .htop{grid-template-columns:1fr}
 .hrow{grid-template-columns:1fr}
@@ -201,13 +193,6 @@ nav{left:18px;right:18px}.mpill{display:none}
 <canvas id="fx"></canvas>
 <svg width="0" height="0" style="position:absolute"><symbol id="lg" viewBox="113 580 720 505"><g fill="currentColor"><polygon class="p1" points="113,840 268,720 317,722 317,752 200,842 305,923 275,950 250,950"/><polygon class="p2" points="833,845 688,727 650,755 752,843 652,917 652,950 697,950"/><polygon class="p3" points="383,688 602,582 602,727 475,810 475,716 383,757"/><polygon class="p3" points="520,800 595,775 595,992 468,1085 470,880"/><path class="p4" d="M221 1047 L710 678 C640 740 560 800 470 878 Z"/></g></symbol></svg>
 
-<div class="sidepill gl">
-<a href="#top" class="on" title="Home"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10"/></svg></a>
-<a href="#services" title="My Work"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></a>
-<a href="#process" title="Process"><svg viewBox="0 0 24 24"><path d="M4 12h4l3-7 3 14 3-7h3"/></svg></a>
-<a href="#contact" title="Contact"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></a>
-<span class="mark"><svg viewBox="113 580 720 505"><use href="#lg"/></svg></span>
-</div>
 
 <header class="frame" id="top">
 

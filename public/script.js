@@ -110,12 +110,10 @@ fRender();
 var secIds = ["top","services","process","contact"];
 var secEls = secIds.map(function(id){ return document.getElementById(id); });
 var menuLinks = document.querySelectorAll(".mpill a");
-var sideLinks = document.querySelectorAll(".sidepill a");
 function spy(){
   var y = scrollY + innerHeight * .4, idx = 0;
   secEls.forEach(function(s, i){ if(s.offsetTop <= y) idx = i; });
   menuLinks.forEach(function(a, i){ a.classList.toggle("on", i === idx); });
-  sideLinks.forEach(function(a, i){ a.classList.toggle("on", i === idx); });
 }
 addEventListener("scroll", spy, {passive:true});
 spy();
@@ -203,8 +201,7 @@ if(!RM){
 if(window.gsap && window.ScrollTrigger && !RM){
   gsap.registerPlugin(ScrollTrigger);
   var tl = gsap.timeline({defaults:{ease:"power3.out"}});
-  tl.from(".sidepill",{opacity:0,duration:.8})
-    .from(".p1",{x:-90,opacity:0,duration:.9},"-=.4")
+  tl.from(".p1",{x:-90,opacity:0,duration:.9})
     .from(".p2",{x:90,opacity:0,duration:.9},"<")
     .from(".p3",{y:70,opacity:0,duration:.9,stagger:.1},"-=.6")
     .from(".p4",{scale:0,transformOrigin:"center",opacity:0,duration:.6},"-=.4")
