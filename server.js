@@ -5,14 +5,38 @@ const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
-const sessions = new Map();
+const SECRET = process.env.SESSION_SECRET || process.env.ADMIN_PASSWORD || '';
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/libs/gsap', express.static(path.join(__dirname, 'node_modules/gsap/dist')));
-app.use('/libs/motion', express.static(path.join(__dirname, 'node_modules/motion/dist')));
+
+/* ---------- signed login token (works on Vercel, no memory needed) ---------- */
+function sign(value) {
+  return crypto.createHmac('sha256', SECRET).update(value).digest('hex');
+}
+
+function makeToken() {
+  const exp = String(Date.now() + 8 * 60 * 60 * 1000);
+  return exp + '.' + sign(exp);
+}
+
+function validToken(token) {
+  if (!token || !SECRET) return false;
+  const parts = String(token).split('.');
+  if (parts.length !== 2) return false;
+  const a = Buffer.from(parts[1]);
+  const b = Buffer.from(sign(parts[0]));
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return false;
+  return Number(parts[0]) > Date.now();
+}
+
+function requireAdmin(req, res, next) {
+  if (!validToken(req.headers['x-token'])) {
+    return res.status(401).json({ error: 'Please log in again.' });
+  }
+  next();
+}
 
 /* public: save an order */
 app.post('/api/orders', async (req, res) => {
@@ -48,21 +72,8 @@ app.post('/api/admin/login', (req, res) => {
     return setTimeout(() => res.status(401).json({ error: 'Wrong password.' }), 800);
   }
 
-  const token = crypto.randomUUID();
-  sessions.set(token, Date.now() + 8 * 60 * 60 * 1000);
-  res.json({ token });
+  res.json({ token: makeToken() });
 });
-
-/* admin: check token */
-function requireAdmin(req, res, next) {
-  const token = req.headers['x-token'];
-  const expires = sessions.get(token);
-  if (!expires || expires < Date.now()) {
-    sessions.delete(token);
-    return res.status(401).json({ error: 'Please log in again.' });
-  }
-  next();
-}
 
 /* admin: list orders */
 app.get('/api/admin/orders', requireAdmin, async (req, res) => {
@@ -104,6 +115,12 @@ app.delete('/api/admin/orders/:id', requireAdmin, async (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, () => {
-  console.log('Website running on http://localhost:' + PORT);
-});
+/* run locally with: npm start  (Vercel uses the exported app) */
+const PORT = process.env.PORT || 3000;
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('Website running on http://localhost:' + PORT);
+  });
+}
+
+module.exports = app;
