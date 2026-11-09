@@ -46,7 +46,7 @@ svg{display:block}
 .out{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);padding:12px 14px;border-radius:99px;color:var(--mute);cursor:pointer;font-weight:500}
 .out:hover{color:var(--red);border-color:rgba(255,107,112,.4)}
 .out svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.main{margin-left:250px;padding:26px 32px 50px}
+.main{margin-left:0;padding:26px 32px 50px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
 .top h2{margin:0;font-size:1.7rem;letter-spacing:-.02em}
 .top p{margin:2px 0 0;color:var(--mute)}
@@ -120,11 +120,8 @@ tr:last-child td{border-bottom:0}
 
 @media(max-width:1100px){.grid4{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}}
 @media(max-width:860px){
-.side{position:sticky;top:0;width:auto;height:auto;flex-direction:row;align-items:center;padding:12px 16px;border-right:0;border-bottom:1px solid var(--line);gap:10px}
-.brand{padding:0}.brand span{display:none}
-.nav{display:flex;flex:1}.nav button span{display:none}.nav button{padding:11px}
-.sp{display:none}.out span{display:none}.out{padding:11px}
 .main{margin-left:0;padding:20px 16px 40px}
+.top{flex-wrap:wrap}.tr{flex-wrap:wrap}
 }
 @media(max-width:520px){.grid4{grid-template-columns:1fr}.top h2{font-size:1.4rem}}
 </style>
@@ -145,20 +142,15 @@ tr:last-child td{border-bottom:0}
 
 <!-- APP -->
 <div id="app" class="hide">
-  <aside class="side">
-    <div class="brand"><i><svg viewBox="113 580 720 505" fill="#fff"><polygon points="113,840 268,720 317,722 317,752 200,842 305,923 275,950 250,950"/><polygon points="833,845 688,727 650,755 752,843 652,917 652,950 697,950"/><polygon points="383,688 602,582 602,727 475,810 475,716 383,757"/><polygon points="520,800 595,775 595,992 468,1085 470,880"/><path d="M221 1047 L710 678 C640 740 560 800 470 878 Z"/></svg></i><span>OneCode<b>+</b></span></div>
-    <div class="nav">
-      <button class="on" data-v="overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg><span>Overview</span></button>
-      <button data-v="orders"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Orders</span></button>
-    </div>
-    <div class="sp"></div>
-    <button class="out" id="logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Log out</span></button>
-  </aside>
-
   <main class="main">
     <div class="top">
       <div><h2 id="ttl">Overview</h2><p id="tsub">Here is what is happening with your orders</p></div>
-      <div class="tr"><button class="btn soft" id="refresh">Refresh</button><div class="ava">A</div></div>
+      <div class="tr">
+        <div class="seg vtabs"><button class="on" data-v="overview">Overview</button><button data-v="orders">Orders</button></div>
+        <button class="btn soft" id="refresh">Refresh</button>
+        <button class="btn soft" id="logout">Log out</button>
+        <div class="ava">A</div>
+      </div>
     </div>
 
     <!-- OVERVIEW -->
@@ -244,13 +236,13 @@ $('seg').addEventListener('click', function(e){
   document.querySelectorAll('#seg button').forEach(function(x){ x.classList.toggle('on', x === b); });
   renderChart();
 });
-document.querySelectorAll('.nav button').forEach(function(b){
+document.querySelectorAll('.vtabs button').forEach(function(b){
   b.addEventListener('click', function(){ setView(b.dataset.v); });
 });
 
 function setView(v){
   view = v;
-  document.querySelectorAll('.nav button').forEach(function(b){ b.classList.toggle('on', b.dataset.v === v); });
+  document.querySelectorAll('.vtabs button').forEach(function(b){ b.classList.toggle('on', b.dataset.v === v); });
   $('v-overview').classList.toggle('hide', v !== 'overview');
   $('v-orders').classList.toggle('hide', v !== 'orders');
   $('ttl').textContent = v === 'overview' ? 'Overview' : 'Orders';
