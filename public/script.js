@@ -85,27 +85,6 @@ document.getElementById("wScroll").addEventListener("click", function(){
 });
 renderAll();
 
-/* ===== Featured service card (hero) ===== */
-var fi = 0;
-function fRender(){
-  var s = S[fi];
-  document.getElementById("fTile").style.background = "linear-gradient(160deg," + s.c + ",#071d38 90%)";
-  document.getElementById("fIc").innerHTML = s.ic;
-  document.getElementById("fT").textContent = s.t;
-  document.getElementById("fD").textContent = s.d;
-  document.getElementById("fCnt").textContent = pad(fi + 1) + " / " + pad(N);
-}
-function fGo(d){
-  fi = (fi + d + N) % N;
-  fRender();
-  if(window.gsap && !RM){
-    gsap.fromTo(".ftxt > *, #fTile svg", {y:14, opacity:0}, {y:0, opacity:1, duration:.45, stagger:.05, ease:"power3.out"});
-  }
-}
-document.getElementById("fPrev").addEventListener("click", function(){ fGo(-1); });
-document.getElementById("fNext").addEventListener("click", function(){ fGo(1); });
-fRender();
-
 /* ===== menu highlight while scrolling ===== */
 var secIds = ["top","services","process","contact"];
 var secEls = secIds.map(function(id){ return document.getElementById(id); });
@@ -207,8 +186,7 @@ if(window.gsap && window.ScrollTrigger && !RM){
     .from(".p4",{scale:0,transformOrigin:"center",opacity:0,duration:.6},"-=.4")
     .from(".eyebrow",{y:20,opacity:0,duration:.6},"-=1.2")
     .from("#h .wi",{yPercent:115,duration:.9,stagger:.1,ease:"power4.out"},"-=.6")
-    .from(".hsub,.hbtns,.vlist",{y:26,opacity:0,duration:.8,stagger:.12},"-=.6")
-    .from(".hrow > *",{y:60,opacity:0,duration:.8,stagger:.12},"-=.7");
+    .from(".hsub,.hbtns",{y:26,opacity:0,duration:.8,stagger:.12},"-=.6");
   gsap.to(".track",{xPercent:-50,duration:30,repeat:-1,ease:"none"});
   gsap.utils.toArray("h2:not(.wtitle)").forEach(function(el){
     gsap.from(el,{y:50,opacity:0,duration:.9,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
