@@ -21,14 +21,16 @@ button{font:inherit;color:inherit}
 svg{display:block}
 
 /* NAV (inside the hero frame, at the very top edge, scrolls away with the hero) */
-nav{position:absolute;top:6px;left:26px;right:26px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px}
+nav.topbar{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(1150px,calc(100% - 40px));z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 10px 8px 24px;border-radius:99px}
 .gl{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.22);box-shadow:0 18px 40px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;background:none;border:0;box-shadow:none;padding:0}
-.brand svg{width:40px;height:auto}
-.mpill{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:99px}
-.mpill a{padding:10px 24px;border-radius:99px;font-size:.92rem;color:rgba(255,255,255,.8);transition:background .25s,color .25s}
+.brand svg{width:40px;height:28px;flex:none}
+.mpill{display:flex;gap:6px}
+.mpill a{position:relative;padding:10px 18px;font-size:.92rem;color:rgba(255,255,255,.8);transition:color .25s}
+.mpill a::after{content:"";position:absolute;left:18px;right:18px;bottom:2px;height:2px;border-radius:2px;background:#8fc4ff;transform:scaleX(0);transition:transform .25s}
 .mpill a:hover{color:#fff}
-.mpill a.on{background:#fff;color:var(--bg);font-weight:500}
+.mpill a.on{color:#fff;font-weight:500}
+.mpill a.on::after,.mpill a:hover::after{transform:scaleX(1)}
 .navbtn{display:flex;align-items:center;gap:16px;padding:6px 6px 6px 24px;border-radius:99px;font-weight:500;background:linear-gradient(90deg,#2f6bff,#1f3fd0);box-shadow:0 12px 28px rgba(47,107,255,.5),inset 0 1px 0 rgba(255,255,255,.35);transition:box-shadow .25s}
 .navbtn:hover{box-shadow:0 16px 36px rgba(47,107,255,.7),inset 0 1px 0 rgba(255,255,255,.35)}
 .navbtn i,.hbtn i{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center}
@@ -174,7 +176,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 .frame{min-height:0}
 }
 @media(max-width:860px){
-nav{left:18px;right:18px}.mpill{display:none}
+.topbar{padding:8px 8px 8px 18px}.mpill{display:none}
 .steps{grid-template-columns:1fr 1fr}.line{display:none}
 .cgrid{grid-template-columns:1fr;gap:40px}.contact{min-height:auto}.fiche{justify-self:stretch;max-width:none}
 .work{height:auto;min-height:100vh}
@@ -194,14 +196,15 @@ nav{left:18px;right:18px}.mpill{display:none}
 <svg width="0" height="0" style="position:absolute"><symbol id="lg" viewBox="113 580 720 505"><g fill="currentColor"><polygon class="p1" points="113,840 268,720 317,722 317,752 200,842 305,923 275,950 250,950"/><polygon class="p2" points="833,845 688,727 650,755 752,843 652,917 652,950 697,950"/><polygon class="p3" points="383,688 602,582 602,727 475,810 475,716 383,757"/><polygon class="p3" points="520,800 595,775 595,992 468,1085 470,880"/><path class="p4" d="M221 1047 L710 678 C640 740 560 800 470 878 Z"/></g></symbol></svg>
 
 
-<div class="mpill gl"><a href="#top" class="on">Home</a><a href="#services">My Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
+
+<nav class="topbar gl">
+<a class="brand" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
+<div class="mpill"><a href="#top" class="on">Home</a><a href="#services">My Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
+<a class="navbtn" href="#contact"><span>Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+</nav>
 
 <header class="frame" id="top">
 
-<nav>
-<a class="brand" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
-<a class="navbtn" href="#contact"><span>Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-</nav>
 
 <svg class="bgart" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
 <defs>
