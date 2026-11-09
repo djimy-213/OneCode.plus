@@ -38,16 +38,17 @@ nav.topbar{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min
 
 
 /* HERO FRAME */
-.frame{position:relative;margin:14px;min-height:calc(100vh - 28px);border-radius:38px;overflow:hidden;border:1px solid rgba(255,255,255,.18);background:var(--bg);isolation:isolate}
-.bgart{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
-.hin{position:relative;min-height:calc(100vh - 28px);padding:110px 56px 60px;align-items:center;text-align:center;display:flex;flex-direction:column;gap:26px}
+.frame{position:relative;min-height:100vh;isolation:isolate}
+.hin{position:relative;min-height:100vh;padding:110px 56px 60px;align-items:center;text-align:center;display:flex;flex-direction:column;gap:26px}
 .htop{flex:1;display:flex;align-items:center;justify-content:center;gap:30px}
 .eyebrow{font-size:.7rem;letter-spacing:.32em;color:rgba(255,255,255,.78);margin:0 0 18px}
 h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(3rem,6.6vw,6rem);line-height:1;margin:0;letter-spacing:-.01em}
 .hl{display:block}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.16em;margin-bottom:-.16em}.wi{display:inline-block}
 .acc{color:#8fc4ff}
-.hsub{color:rgba(255,255,255,.82);max-width:520px;margin:24px auto 28px;font-size:1.05rem}
+.htags{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0 auto 30px;padding:0;max-width:820px}
+.htags li{padding:8px 18px;border-radius:99px;font-size:.85rem;color:rgba(255,255,255,.9);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
+.hsub{color:rgba(255,255,255,.82);max-width:600px;margin:24px auto 22px;font-size:1.05rem}
 .hbtns{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
 .hbtn{display:flex;align-items:center;gap:14px;padding:6px 6px 6px 26px;border-radius:99px;font-weight:500;background:rgba(4,26,49,.85);border:1px solid rgba(255,255,255,.2);box-shadow:0 14px 30px rgba(0,0,0,.3)}
 .hplay{display:flex;align-items:center;gap:12px;font-size:.95rem;color:rgba(255,255,255,.9)}
@@ -206,19 +207,6 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <header class="frame" id="top">
 
 
-<svg class="bgart" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-<defs>
-<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#041a31"/><stop offset=".5" stop-color="#0d3a73"/><stop offset="1" stop-color="#4a8fe8"/></linearGradient>
-<radialGradient id="sun" cx="68%" cy="56%" r="45%"><stop offset="0" stop-color="#bfe0ff" stop-opacity=".75"/><stop offset=".45" stop-color="#6db3ff" stop-opacity=".25"/><stop offset="1" stop-color="#6db3ff" stop-opacity="0"/></radialGradient>
-<linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a2d52" stop-opacity="0"/><stop offset="1" stop-color="#041a31" stop-opacity=".9"/></linearGradient>
-</defs>
-<rect width="1440" height="800" fill="url(#sky)"/>
-<rect width="1440" height="800" fill="url(#sun)"/>
-<path d="M0 520 L160 410 L290 480 L470 330 L640 490 L770 420 L910 505 L1090 385 L1260 485 L1440 420 V800 H0Z" fill="#14437f" opacity=".85"/>
-<path d="M0 610 L150 520 L330 595 L530 480 L710 610 L890 545 L1070 625 L1250 545 L1440 610 V800 H0Z" fill="#0c3365"/>
-<path d="M0 705 L210 640 L430 705 L670 655 L910 715 L1160 655 L1440 705 V800 H0Z" fill="#072a52"/>
-<rect y="560" width="1440" height="240" fill="url(#water)"/>
-</svg>
 
 <div class="vlist" aria-hidden="true">MODERN<br>FAST<br>SECURE<br>SCALABLE</div>
 
@@ -227,7 +215,8 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <div>
 <p class="eyebrow">WEB DESIGN — DEVELOPMENT — MOBILE APPS</p>
 <h1 id="h"><span class="hl">Websites</span><span class="hl">That <em class="acc">Inspire</em></span></h1>
-<p class="hsub">We design and build modern websites that blend clean design, speed and smart technology.</p>
+<p class="hsub">We design and build modern websites that blend clean design, speed and smart technology. From your first idea to launch day, we take care of everything, so you can focus on growing your business.</p>
+<ul class="htags" aria-label="What you get"><li>Responsive design</li><li>Fast loading</li><li>SEO ready</li><li>Secure &amp; reliable</li><li>Easy to manage</li></ul>
 <div class="hbtns">
 <a class="hbtn" href="#services"><span>Explore Our Work</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
 <a class="hplay" href="#contact"><span class="circ"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>Get a free quote</a>
