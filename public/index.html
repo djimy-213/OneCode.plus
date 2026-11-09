@@ -15,6 +15,7 @@ button{font:inherit;color:inherit}
 .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
 .grad{background:linear-gradient(90deg,#fff,#7fbcff,#fff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 6s linear infinite}
 @keyframes shift{to{background-position:200% center}}
+#hexbg{position:fixed;top:0;left:0;z-index:-2;pointer-events:none}
 #fx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 .btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:500;padding:12px 28px;border-radius:99px;background:#fff;color:var(--bg)}
 .btn.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
@@ -172,6 +173,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <link rel="stylesheet" href="/flexcarousel.css">
 </head>
 <body>
+<canvas id="hexbg" aria-hidden="true"></canvas>
 <canvas id="fx"></canvas>
 <svg width="0" height="0" style="position:absolute"><symbol id="lg" viewBox="113 580 720 505"><g fill="currentColor"><polygon class="p1" points="113,840 268,720 317,722 317,752 200,842 305,923 275,950 250,950"/><polygon class="p2" points="833,845 688,727 650,755 752,843 652,917 652,950 697,950"/><polygon class="p3" points="383,688 602,582 602,727 475,810 475,716 383,757"/><polygon class="p3" points="520,800 595,775 595,992 468,1085 470,880"/><path class="p4" d="M221 1047 L710 678 C640 740 560 800 470 878 Z"/></g></symbol></svg>
 
@@ -269,6 +271,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <script src="/libs/gsap/ScrollTrigger.min.js"></script>
 <script src="/libs/motion/motion.js"></script>
 <script src="/script.js"></script>
+<script src="/hexbg.js"></script>
 <script type="module" src="/work-init.js"></script>
 </body>
 </html>
