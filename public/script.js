@@ -107,7 +107,7 @@ if(window.gsap && window.ScrollTrigger && !RM){
     gsap.from(el,{y:50,opacity:0,duration:.9,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
   });
   /* my work entrance */
-  gsap.from(".whead > *",{y:40,opacity:0,duration:.9,stagger:.12,ease:"power3.out",scrollTrigger:{trigger:".work",start:"top 70%"}});
+  gsap.from(".wleft > *, .wright",{y:40,opacity:0,duration:.9,stagger:.12,ease:"power3.out",scrollTrigger:{trigger:".work",start:"top 70%"}});
   gsap.from(".wline",{y:30,opacity:0,duration:.8,ease:"power3.out",scrollTrigger:{trigger:".work",start:"top 50%"}});
   gsap.to(".wglow",{yPercent:40,ease:"none",scrollTrigger:{trigger:".work",scrub:true,start:"top bottom",end:"bottom top"}});
   gsap.from(".soc",{y:30,opacity:0,duration:.6,stagger:.08,ease:"back.out(1.6)",scrollTrigger:{trigger:".socials",start:"top 85%"}});
@@ -124,8 +124,3 @@ if(window.Motion && !RM){
     M.animate(t,{opacity:[0,1],x:[-40,0]},{duration:.7,delay:.1,ease:"easeOut"});
   },{amount:.4});
 }
-/* My Work: if the 3D carousel has not started after 5 s, show the plain image list instead */
-setTimeout(function(){
-  var st = document.getElementById("workStage");
-  if(st && !st.dataset.ready) st.classList.add("fallback");
-}, 5000);
