@@ -96,19 +96,16 @@ h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:600;text-align:center;margin:0 0
 /* MY WORK - project cards: hover a card to enlarge it */
 .work{position:relative;height:100vh;min-height:680px;padding:96px 0 0;display:flex;flex-direction:column;overflow:hidden}
 .wglow{position:absolute;right:-120px;top:18%;width:560px;height:560px;border-radius:50%;background:#2f6bff;opacity:.22;filter:blur(120px);pointer-events:none}
-.wbg{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(28px) saturate(1.3);opacity:.55;transition:opacity .25s ease;pointer-events:none}
-.wshade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,34,64,.5),rgba(6,34,64,.62) 55%,rgba(6,34,64,.85));pointer-events:none}
-.wgrid{position:relative;flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:10px clamp(24px,8vw,120px) 0}
-.work .wtitle{font-size:clamp(2.6rem,6vw,5rem);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:0 0 16px;text-align:left}
-.wsub{color:rgba(255,255,255,.82);font-size:clamp(1rem,1.5vw,1.25rem);max-width:460px;margin:0 0 28px}
-.wvisit{display:inline-block;padding:13px 30px;border:1px solid rgba(255,255,255,.7);border-radius:6px;font-weight:500;transition:background .25s,color .25s}
-.wvisit:hover{background:#fff;color:#062240}
-.wright{display:flex;gap:28px;align-items:flex-start;padding-top:24px}
-.wrule{flex:none;width:110px;height:1px;background:rgba(255,255,255,.7);margin-top:20px}
-.wright h3{font-size:1.9rem;font-weight:600;margin:0 0 14px}
-.wright p{margin:0;color:rgba(255,255,255,.85);max-width:430px;line-height:1.6;font-size:.98rem}
+.wgrid{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 24px 0}
+.work .wtitle{font-size:clamp(2.6rem,6vw,5rem);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:0 0 16px;text-align:center}
+.wsub{color:rgba(255,255,255,.82);font-size:clamp(1rem,1.5vw,1.25rem);max-width:680px;margin:0 auto}
+.wdetail{min-height:120px;margin-top:28px;max-width:560px;opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease}
+.work.hovering .wdetail{opacity:1;transform:none}
+.wdetail h3{font-size:1.9rem;font-weight:600;margin:0 0 12px}
+.wdetail p{margin:0;color:rgba(255,255,255,.85);line-height:1.6;font-size:.98rem}
 .wcards{position:relative;display:flex;align-items:flex-end;gap:46px;padding:70px clamp(24px,8vw,120px) 26px;overflow-x:auto;scrollbar-width:none}
 .wcards::-webkit-scrollbar{display:none}
+.wcard:first-child{margin-left:auto}.wcard:last-child{margin-right:auto}
 .wcard{position:relative;flex:none;display:block;width:clamp(170px,15vw,215px);aspect-ratio:1.75;border-radius:8px;overflow:hidden;transform-origin:50% 100%;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease;box-shadow:0 10px 26px rgba(0,0,0,.35)}
 .wcard img{display:block;width:100%;height:100%;object-fit:cover}
 .wcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5),transparent 45%);pointer-events:none}
@@ -180,8 +177,8 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 .steps{grid-template-columns:1fr 1fr}.line{display:none}
 .cgrid{grid-template-columns:1fr;gap:40px}.contact{min-height:auto}.fiche{justify-self:stretch;max-width:none}
 .work{height:auto;min-height:100vh;padding-top:90px}
-.wgrid{grid-template-columns:1fr;gap:6px;padding-top:30px}
-.wright{padding-top:6px}.wrule{display:none}
+.wgrid{padding-top:30px}
+.wdetail{min-height:0;margin-top:20px;opacity:1;transform:none}
 .wcards{gap:26px}
 .wline{white-space:normal}
 }
@@ -229,14 +226,10 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 
 <section class="work" id="services">
 <div class="wglow"></div>
-<div class="wbg" id="wBg"></div><div class="wshade"></div>
 <div class="wgrid">
-<div class="wleft">
 <h2 class="wtitle">My Work</h2>
 <p class="wsub">Websites we design and build, from the first idea to launch day.</p>
-<a class="wvisit" id="wVisit" href="https://elegance-clothes.vercel.app/" target="_blank" rel="noopener">Visit the website</a>
-</div>
-<div class="wright"><i class="wrule"></i><div><h3 id="wName">Elegance Clothes</h3><p id="wDesc">An online clothing store for men, women and kids, with easy exchanges and cash on delivery.</p></div></div>
+<div class="wdetail"><h3 id="wName"></h3><p id="wDesc"></p></div>
 </div>
 <!-- To add a website: copy one <a class="wcard"> below, then change the link, image, name and text. -->
 <div class="wcards" id="wCards">
