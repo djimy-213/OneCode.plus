@@ -8,7 +8,7 @@
   var SIZE = 38;                       // hexagon radius in px
   var LINE = [109, 179, 255];          // site sky blue (grid lines)
   var GLOW = [47, 107, 255];           // site button blue (light)
-  var R = 330;                         // light radius in px
+  var R = 170;                         // light radius in px
   var W = 1, H = 1, dpr = 1, base = null, raf = 0, last = 0, t = 0, visible = true;
   var lx = -9999, ly = -9999, tx = 0, ty = 0, active = false, idleSince = 0;
   var hexW = Math.sqrt(3) * SIZE, rowH = SIZE * 1.5;

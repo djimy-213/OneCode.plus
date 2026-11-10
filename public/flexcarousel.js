@@ -1158,7 +1158,7 @@ export function createFlexCarousel(container, options = {}) {
     container.addEventListener('pointerup', onPointerUp);
     container.addEventListener('pointerleave', onPointerLeave);
     container.addEventListener('pointercancel', onPointerCancel);
-    container.addEventListener('wheel', onWheel, { passive: false });
+    if (settingsRef.current.captureWheel) container.addEventListener('wheel', onWheel, { passive: false });
     container.addEventListener('keydown', onKeyDown);
     container.addEventListener('focus', onFocus);
     container.addEventListener('blur', onBlur);

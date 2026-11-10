@@ -80,33 +80,6 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   });
 });
 
-/* particles */
-if(!RM){
-  var cv = document.getElementById("fx"), cx = cv.getContext("2d"), W, H, P = [], mx = -999, my = -999;
-  function rs(){
-    W = cv.width = innerWidth; H = cv.height = innerHeight; P = [];
-    for(var i=0;i<Math.min(60,W/20);i++) P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3});
-  }
-  rs(); addEventListener("resize", rs);
-  addEventListener("mousemove", function(e){mx = e.clientX; my = e.clientY});
-  (function dr(){
-    cx.clearRect(0,0,W,H);
-    P.forEach(function(a,i){
-      a.x += a.vx; a.y += a.vy;
-      if(a.x<0||a.x>W) a.vx *= -1;
-      if(a.y<0||a.y>H) a.vy *= -1;
-      var dx = a.x-mx, dy = a.y-my, d = Math.hypot(dx,dy);
-      if(d<130){a.x += dx/d; a.y += dy/d}
-      cx.fillStyle = "rgba(255,255,255,.65)"; cx.beginPath(); cx.arc(a.x,a.y,1.4,0,6.3); cx.fill();
-      for(var j=i+1;j<P.length;j++){
-        var b = P[j], e = (a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y);
-        if(e<13000){cx.strokeStyle = "rgba(109,179,255,"+.25*(1-e/13000)+")"; cx.beginPath(); cx.moveTo(a.x,a.y); cx.lineTo(b.x,b.y); cx.stroke()}
-      }
-    });
-    requestAnimationFrame(dr);
-  })();
-}
-
 /* GSAP (page entrance and scroll reveals only, no button movement) */
 if(window.gsap && window.ScrollTrigger && !RM){
   gsap.registerPlugin(ScrollTrigger);
@@ -123,7 +96,7 @@ if(window.gsap && window.ScrollTrigger && !RM){
     gsap.from(el,{y:50,opacity:0,duration:.9,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}});
   });
   /* my work entrance */
-  gsap.from(".whead > *, .wact",{y:40,opacity:0,duration:.9,stagger:.12,ease:"power3.out",scrollTrigger:{trigger:".work",start:"top 70%"}});
+  gsap.from(".whead > *",{y:40,opacity:0,duration:.9,stagger:.12,ease:"power3.out",scrollTrigger:{trigger:".work",start:"top 70%"}});
   gsap.from(".wline",{y:30,opacity:0,duration:.8,ease:"power3.out",scrollTrigger:{trigger:".work",start:"top 50%"}});
   gsap.to(".wglow",{yPercent:40,ease:"none",scrollTrigger:{trigger:".work",scrub:true,start:"top bottom",end:"bottom top"}});
   gsap.from(".soc",{y:30,opacity:0,duration:.6,stagger:.08,ease:"back.out(1.6)",scrollTrigger:{trigger:".socials",start:"top 85%"}});
