@@ -3,18 +3,17 @@ import { createFlexCarousel, flexCarouselReady } from './flexcarousel.js';
 
 var stage = document.getElementById('workStage');
 
+/* Slides. With one slide the page shows it as a large linked image; with two or more it becomes the 3D carousel. */
 var items = [
-  { src: '/work/elegance-clothes.svg', alt: 'Elegance Clothes: online clothing store', title: 'Elegance Clothes', subtitle: 'Visit the website ↗', href: 'https://elegance-clothes.vercel.app/' },
-  { src: '/work/web-design.svg', alt: 'Web design: clean, memorable interfaces', title: 'Web design', subtitle: 'Interfaces' },
-  { src: '/work/web-development.svg', alt: 'Web development: fast, secure websites and web apps', title: 'Web development', subtitle: 'Fast websites' },
-  { src: '/work/e-commerce.svg', alt: 'E-commerce: online stores with simple checkout', title: 'E-commerce', subtitle: 'Online stores' },
-  { src: '/work/mobile-apps.svg', alt: 'Mobile apps for iOS and Android', title: 'Mobile apps', subtitle: 'iOS and Android' },
-  { src: '/work/dashboards.svg', alt: 'Dashboards and admin tools', title: 'Dashboards', subtitle: 'Smart tools' }
+  { src: '/work/elegance-clothes.jpg', alt: 'Elegance Clothes website: home page', title: 'Elegance Clothes', subtitle: 'Visit the website \u2197', href: 'https://elegance-clothes.vercel.app/' }
 ];
 
 function showFallback() { stage.classList.add('fallback'); }
 
-if (stage) {
+if (stage && items.length < 2) {
+  stage.dataset.ready = '1';
+  stage.classList.add('fallback', 'single');
+} else if (stage) {
   try {
     if (!flexCarouselReady) throw new Error('ogl not loaded');
     var mount = document.createElement('div');
