@@ -28,12 +28,23 @@ function spy(){
 addEventListener("scroll", spy, {passive:true});
 spy();
 
-/* My Work link: show the section on the full screen */
-document.querySelectorAll('a[href="#services"]').forEach(function(a){
-  a.addEventListener("click", function(e){
-    e.preventDefault();
-    scrollTo({top: document.getElementById("services").offsetTop, behavior:"smooth"});
+/* My Work and Process links: show the section on the full screen */
+["services","process"].forEach(function(id){
+  document.querySelectorAll('a[href="#'+id+'"]').forEach(function(a){
+    a.addEventListener("click", function(e){
+      e.preventDefault();
+      scrollTo({top: document.getElementById(id).offsetTop, behavior:"smooth"});
+    });
   });
+});
+
+/* Discord: copy the username (Discord has no profile link by username) */
+var dl = document.getElementById("discordLink");
+if(dl) dl.addEventListener("click", function(){
+  var name = "djimyy_16";
+  try{ navigator.clipboard.writeText(name); }catch(e){}
+  var t = document.createElement("div"); t.className = "copied"; t.textContent = "Discord username copied: " + name;
+  document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2600);
 });
 
 /* order form */

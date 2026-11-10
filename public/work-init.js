@@ -4,6 +4,7 @@ import { createFlexCarousel, flexCarouselReady } from './flexcarousel.js';
 var stage = document.getElementById('workStage');
 
 var items = [
+  { src: '/work/elegance-clothes.svg', alt: 'Elegance Clothes: online clothing store', title: 'Elegance Clothes', subtitle: 'Visit the website ↗', href: 'https://elegance-clothes.vercel.app/' },
   { src: '/work/web-design.svg', alt: 'Web design: clean, memorable interfaces', title: 'Web design', subtitle: 'Interfaces' },
   { src: '/work/web-development.svg', alt: 'Web development: fast, secure websites and web apps', title: 'Web development', subtitle: 'Fast websites' },
   { src: '/work/e-commerce.svg', alt: 'E-commerce: online stores with simple checkout', title: 'E-commerce', subtitle: 'Online stores' },
@@ -28,10 +29,10 @@ if (stage) {
       gap: 14,
       radius: 22,
       squeeze: 0.2,
-      focusOnClick: true,
+      focusOnClick: false,   // clicking the centered card opens its website
       captions: true,
       captureWheel: true,    // mouse wheel over the slides scrolls the carousel
-      onSelect: function () {}
+      onSelect: function (i, item) { if (item && item.href) window.open(item.href, '_blank', 'noopener'); }
     });
     if (api) {
       stage.dataset.ready = '1';
