@@ -105,6 +105,17 @@ h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:600;text-align:center;margin:0 0
 .arr svg,.go2 svg,.scrollbtn svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .wline{font-size:clamp(.95rem,2.4vw,1.9rem);font-weight:500;text-align:center;padding:22px 24px 30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
+.tloop{margin-top:76px}
+.tl-label{text-align:center;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin:0 0 24px}
+.ll{position:relative;overflow:hidden;padding:14px 0}
+.ll-fade{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.ll-track{display:flex;width:max-content;will-change:transform}
+.ll-item{display:flex;flex-direction:column;align-items:center;gap:10px;margin-right:var(--ll-gap,18px);padding:0 26px;color:rgba(255,255,255,.72);transition:transform .25s ease,color .25s ease}
+.ll-item svg{height:var(--ll-h,46px);width:auto;display:block}
+.ll-name{font-size:.8rem;letter-spacing:.04em}
+.ll-scale .ll-item:hover{transform:scale(1.2)}
+.ll-item:hover{color:var(--hc,#fff)}
+.ll-static{overflow-x:auto}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
 .line{position:absolute;left:0;right:0;top:22px;height:2px;background:linear-gradient(90deg,#fff,var(--sky));transform-origin:left;transform:scaleX(0)}
 .step{position:relative;padding-top:56px}
@@ -219,7 +230,9 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <div class="step"><h3>2. Design</h3><p>You review clear mockups before any code.</p></div>
 <div class="step"><h3>3. Build</h3><p>We develop, test and show progress each week.</p></div>
 <div class="step"><h3>4. Launch</h3><p>We go live and support you afterwards.</p></div>
-</div></div></section>
+</div></div>
+<div class="tloop"><p class="tl-label">Built with modern technologies</p><div id="techLoop"></div></div>
+</section>
 
 <section class="contact" id="contact"><div class="wrap cgrid">
 
@@ -261,6 +274,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;color:v
 <script src="/libs/gsap/ScrollTrigger.min.js"></script>
 <script src="/libs/motion/motion.js"></script>
 <script src="/script.js"></script>
+<script src="/logoloop.js"></script>
 <script src="/hexbg.js"></script>
 <script type="module" src="/work-init.js"></script>
 </body>
