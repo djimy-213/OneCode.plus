@@ -30,7 +30,7 @@ if (stage) {
       squeeze: 0.2,
       focusOnClick: true,
       captions: true,
-      captureWheel: false,   // vertical mouse wheel keeps scrolling the page
+      captureWheel: true,    // mouse wheel over the slides scrolls the carousel
       onSelect: function () {}
     });
     if (api) {
