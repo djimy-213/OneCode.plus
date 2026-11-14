@@ -19,11 +19,11 @@ document.querySelectorAll("#h .hl").forEach(splitLine);
 /* ===== menu highlight while scrolling ===== */
 var secIds = ["top","services","process","contact"];
 var secEls = secIds.map(function(id){ return document.getElementById(id); });
-var menuLinks = document.querySelectorAll(".mpill a");
+var menuLinks = document.querySelectorAll(".mpill a, .tabbar a");
 function spy(){
   var y = scrollY + innerHeight * .4, idx = 0;
   secEls.forEach(function(s, i){ if(s.offsetTop <= y) idx = i; });
-  menuLinks.forEach(function(a, i){ a.classList.toggle("on", i === idx); });
+  menuLinks.forEach(function(a, i){ a.classList.toggle("on", i % 4 === idx); });
 }
 addEventListener("scroll", spy, {passive:true});
 spy();

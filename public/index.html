@@ -169,8 +169,6 @@ footer li,footer li a{color:rgba(255,255,255,.72);transition:color .2s}
 footer li a:hover{color:#fff}
 .fbot{border-top:1px solid var(--line);padding:20px 24px;text-align:center;font-size:.88rem}
 .fbot a{color:rgba(255,255,255,.72)}.fbot a:hover{color:#fff}
-@media(max-width:860px){.ftop{grid-template-columns:1fr 1fr;gap:34px}.ftop>div:first-child{grid-column:1/-1}}
-@media(max-width:520px){.ftop{grid-template-columns:1fr}}
 :focus-visible{outline:2px solid var(--sky);outline-offset:3px}
 
 /* keep content clear of the fixed left bar */
@@ -184,17 +182,96 @@ footer li a:hover{color:#fff}
 .hrow{grid-template-columns:1fr}
 .frame{min-height:0}
 }
+/* ================= PHONE LAYOUT (separate from PC, <=860px) ================= */
+.tabbar{display:none}
 @media(max-width:860px){
-.topbar{padding:8px 8px 8px 18px}.mpill{display:none}
-.steps{grid-template-columns:1fr 1fr}.line{display:none}
-.cgrid{grid-template-columns:1fr;gap:40px}.contact{min-height:auto}.fiche{justify-self:stretch;max-width:none}
-.work{height:auto;min-height:100vh;padding-top:90px}
-.wgrid{padding-top:30px}
-.wdetail{min-height:0;margin-top:20px;opacity:1;transform:none}
-.wcards{gap:26px}
-.wline{white-space:normal}
+html,body{overflow-x:clip}
+html{scroll-padding-top:0}
+body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+section{padding:0}
+
+/* top bar: logo + one short button */
+nav.topbar{top:10px;width:calc(100% - 20px);padding:6px 6px 6px 16px;gap:10px}
+.mpill{display:none}
+.brand{font-size:1.05rem;gap:8px}
+.brand svg{width:34px;height:24px}
+.navbtn{padding:4px 4px 4px 16px;gap:10px;font-size:.86rem;white-space:nowrap}
+.navbtn i{width:32px;height:32px}
+.navbtn span{font-size:0}
+.navbtn span::before{content:"Start";font-size:.9rem}
+
+/* bottom tab bar = main navigation */
+.tabbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;z-index:60;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));padding:6px;border-radius:26px;background:rgba(6,34,64,.82);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 34px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.14)}
+.tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;border-radius:20px;font-size:.7rem;letter-spacing:.02em;color:rgba(255,255,255,.62);-webkit-tap-highlight-color:transparent;transition:background .25s,color .25s}
+.tabbar svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tabbar a.on{color:#fff;font-weight:500;background:linear-gradient(90deg,rgba(47,107,255,.55),rgba(31,63,208,.55));box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+
+/* hero */
+.hin{min-height:100svh;padding:96px 20px 28px;gap:18px;justify-content:center}
+h1{font-size:clamp(2.5rem,12.5vw,3.6rem)}
+.eyebrow{letter-spacing:.14em;font-size:.72rem;text-align:center}
+.hplay{gap:10px}
+.hsub{font-size:1rem;margin:14px auto 4px}
+.htags{gap:8px;margin:0 auto 6px}
+.htags li{padding:7px 14px;font-size:.78rem}
+.hbtns{flex-direction:column;align-items:stretch;gap:12px;width:100%;max-width:360px}
+.hbtn{justify-content:space-between;padding:6px 6px 6px 24px;min-height:52px}
+.hplay{justify-content:center;min-height:50px;border-radius:99px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06)}
+.ticker{transform:none;margin:8px 0 0;padding:13px 0}
+
+/* my work: vertical stack of tappable cards */
+.work{height:auto;min-height:0;padding:76px 0 40px;overflow:hidden}
+.wgrid{flex:none;padding:20px 20px 0}
+.work .wtitle{font-size:clamp(2.3rem,11vw,3.2rem)}
+.wsub{font-size:1rem}
+.wdetail{display:none}
+.wcards{flex-direction:column;align-items:center;gap:18px;padding:26px 20px 8px;overflow:visible}
+.wcard:first-child,.wcard:last-child{margin:0}
+.wcard,.wcard:hover,.wcard:focus-visible{width:100%;max-width:520px;transform:none;aspect-ratio:1.75;border-radius:18px;box-shadow:0 12px 28px rgba(0,0,0,.38),0 0 0 1px rgba(255,255,255,.18)}
+.wcard::after{background:linear-gradient(180deg,rgba(0,0,0,.62),transparent 55%)}
+.wcard span{left:16px;top:13px;font-size:1.05rem;font-weight:600}
+.wline{white-space:normal;text-wrap:balance;font-size:.95rem;line-height:1.6;padding:20px 24px 0;color:rgba(255,255,255,.85)}
+
+/* process */
+#process{min-height:0;display:block;padding:76px 0 40px}
+#process .wrap{padding:0 20px}
+h2{margin:0 0 28px}
+.steps{grid-template-columns:1fr;gap:12px}
+.line{display:none}
+.step{padding:18px 20px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.step::before{display:none}
+.step h3{font-size:1.1rem}
+.tloop{margin-top:36px}
+.ll-item{padding:0 16px}
+.ll-item svg{height:34px}
+
+/* contact */
+.contact{min-height:0;padding:76px 0 30px}
+.cgrid{grid-template-columns:1fr;gap:34px;padding:0 20px}
+.tile{width:88px;height:88px;border-radius:28px;margin-bottom:18px}
+.tile svg{width:54px;height:38px}
+.cinfo .s{margin-bottom:20px;font-size:.9rem}
+.socials{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;width:100%;max-width:360px}
+.soc{width:100%;height:auto;aspect-ratio:1;border-radius:15px}
+.soc svg{width:55%;height:55%}
+.fiche{justify-self:stretch;max-width:none;width:100%}
+.fld input{height:56px;padding-left:60px;border-radius:24px;font-size:16px}
+.fld svg{left:20px}
+.send{height:56px}
+
+/* footer */
+footer{margin-top:20px}
+.ftop{grid-template-columns:1fr 1fr;gap:28px;padding:40px 20px 30px}
+.ftop>div:first-child{grid-column:1/-1}
+.fbot{padding:18px 20px 22px}
 }
-@media(max-width:520px){.feat{grid-template-columns:1fr}.ftile{height:90px}.steps{grid-template-columns:1fr}.fld input{height:60px;padding-left:66px;border-radius:26px}.fld svg{left:22px}.send{height:60px}.socials{grid-template-columns:repeat(3,54px)}}
+@media(max-width:360px){
+.navbtn{padding-left:14px}
+.brand .t{font-size:.98rem}
+.tabbar a{font-size:.66rem}
+.htags li{padding:6px 11px;font-size:.74rem}
+.ftop{grid-template-columns:1fr}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
@@ -208,6 +285,12 @@ footer li a:hover{color:#fff}
 <a class="brand" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
 <div class="mpill"><a href="#top" class="on">Home</a><a href="#services">My Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
 <a class="navbtn" href="#contact"><span>Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+</nav>
+<nav class="tabbar" aria-label="Main">
+<a href="#top" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+<a href="#services"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg><span>My Work</span></a>
+<a href="#process"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg><span>Process</span></a>
+<a href="#contact"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Contact</span></a>
 </nav>
 
 <header class="frame" id="top">
