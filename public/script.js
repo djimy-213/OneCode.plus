@@ -1,6 +1,11 @@
 var RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
-var items = ["Web design","Web development","E-commerce","Mobile apps","Dashboards","SEO","Branding","Support"];
-document.getElementById("track").innerHTML = items.concat(items).map(function(t){return "<span>"+t+"</span>"}).join("");
+var T = function(k){ return window.I18N ? I18N.t(k) : k; };
+function buildTicker(){
+  var items = window.I18N ? I18N.t("items") : [];
+  document.getElementById("track").innerHTML = items.concat(items).map(function(t){return "<span>"+t+"</span>"}).join("");
+}
+buildTicker();
+addEventListener("langchange", buildTicker);
 
 /* headline: split into words (keeps the light-blue word) */
 function splitLine(el){
@@ -43,41 +48,55 @@ var dl = document.getElementById("discordLink");
 if(dl) dl.addEventListener("click", function(){
   var name = "djimyy_16";
   try{ navigator.clipboard.writeText(name); }catch(e){}
-  var t = document.createElement("div"); t.className = "copied"; t.textContent = "Discord username copied: " + name;
+  var t = document.createElement("div"); t.className = "copied"; t.textContent = T("m_discord") + name;
   document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2600);
 });
 
-/* order form */
+/* order form: checked here first, and checked again on the server */
+var formShownAt = Date.now();
+var NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M}\s'.\-]{1,79}$/u;
+var EMAIL_RE = /^[A-Za-z0-9._%+\-]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9\-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9\-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,24}$/;
+var COMPANY_RE = /^[\p{L}\p{M}\p{N}\s&.,'\u2019\-\/()+!]{1,80}$/u;
+var fixSp = function(v){ return String(v).replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim(); };
 document.getElementById("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
   var form = e.target, ok = document.getElementById("ok"), btn = document.getElementById("send");
+  var ph = window.PHONE ? PHONE.get() : {value:"", ok:true};
   var data = {
-    full_name: form.full_name.value.trim(),
-    email: form.email.value.trim(),
-    phone: form.phone.value.trim(),
-    company: form.company.value.trim()
+    full_name: fixSp(form.full_name.value),
+    email: fixSp(form.email.value).toLowerCase(),
+    phone: ph.value,
+    company: fixSp(form.company.value),
+    website: form.website.value,   /* hidden trap field for bots, must stay empty */
+    ts: formShownAt
   };
-  if(!data.full_name || !/^\S+@\S+\.\S+$/.test(data.email)){
-    ok.textContent = "Please enter your full name and a valid email address.";
+  var bad = !NAME_RE.test(data.full_name) ? ["m_name", "full_name"]
+          : (data.email.length > 160 || !EMAIL_RE.test(data.email)) ? ["m_email", "email"]
+          : !ph.ok ? ["m_phone", "phone_local"]
+          : (data.company && !COMPANY_RE.test(data.company)) ? ["m_company", "company"] : null;
+  if(bad){
+    ok.textContent = T(bad[0]);
+    var f = form.elements[bad[1]] || document.getElementById("phoneLocal"); if(f) f.focus();
     return;
   }
   btn.disabled = true;
-  ok.textContent = "Sending...";
+  ok.textContent = T("m_sending");
   fetch("/api/orders", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(data)
   })
-  .then(function(r){return r.json().then(function(j){return {status:r.status, body:j}})})
+  .then(function(r){return r.json().catch(function(){return {}}).then(function(j){return {status:r.status, body:j}})})
   .then(function(res){
     if(res.status === 200 && res.body.ok){
-      ok.textContent = "Thank you! Your order was sent. We will contact you soon.";
-      form.reset();
+      ok.textContent = T("m_ok");
+      form.reset(); if(window.PHONE) PHONE.reset(); formShownAt = Date.now();
     } else {
-      ok.textContent = res.body.error || "Something went wrong. Please try again.";
+      var map = {name:"m_name", email:"m_email", phone:"m_phone", company:"m_company", rate:"m_rate", dup:"m_dup", fast:"m_fast"};
+      ok.textContent = T(map[res.body.code] || "m_err");
     }
   })
-  .catch(function(){ ok.textContent = "Network error. Please try again."; })
+  .catch(function(){ ok.textContent = T("m_net"); })
   .then(function(){ btn.disabled = false; });
 });
 

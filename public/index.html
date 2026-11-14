@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OneCode+ – Web Development Agency</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#062240;--bg2:#0a2d52;--bg3:#041a31;--ink:#fff;--mute:#9fb6cf;--line:rgba(255,255,255,.15);--sky:#6db3ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
@@ -272,6 +272,72 @@ footer{margin-top:20px}
 .htags li{padding:6px 11px;font-size:.74rem}
 .ftop{grid-template-columns:1fr}
 }
+
+/* ===== language button, phone field, RTL (Arabic) ===== */
+.nr{display:flex;align-items:center;gap:10px}
+.langbtn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:99px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-size:.9rem;font-weight:500;cursor:pointer;transition:background .25s,box-shadow .25s,transform .25s}
+.langbtn:hover{background:rgba(255,255,255,.16);box-shadow:0 0 22px rgba(109,179,255,.35)}
+.langbtn:active{transform:scale(.96)}
+.langbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lb-s{display:none}
+.ccp.hide{display:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fld.phonef{display:flex;align-items:stretch;height:68px;border-radius:30px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(180deg,#0f3563,#0a2d52);box-shadow:0 10px 24px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.fld.phonef:focus-within{outline:2px solid var(--sky);outline-offset:2px}
+.fld.phonef>input{flex:1;min-width:0;height:100%;padding:0 22px;border:0;border-radius:0 30px 30px 0;background:none;box-shadow:none;outline:0;color:#fff;font:inherit;font-size:1.05rem}
+.fld.phonef>input:focus{outline:0}
+.cc{position:relative;flex:none}
+.ccb{display:flex;align-items:center;gap:8px;height:100%;padding:0 16px 0 22px;border:0;border-right:1px solid rgba(255,255,255,.16);border-radius:30px 0 0 30px;background:none;color:#fff;font:inherit;font-size:1rem;cursor:pointer;transition:background .2s}
+.ccb:hover{background:rgba(255,255,255,.07)}
+.ccb span{color:var(--mute);font-size:.85rem;letter-spacing:.06em}
+.fld .ccb svg{position:static;transform:none;width:16px;height:16px;stroke:var(--mute)}
+.ccp{position:absolute;z-index:40;top:calc(100% + 8px);left:0;width:min(330px,calc(100vw - 40px));border-radius:22px;padding:10px;background:rgba(7,32,60,.96);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.2);box-shadow:0 22px 50px rgba(0,0,0,.55)}
+.ccp>input{width:100%;height:44px;padding:0 16px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font:inherit;font-size:16px;margin-bottom:8px;outline:none}
+.ccp>input:focus{border-color:var(--sky)}
+.ccp ul{list-style:none;margin:0;padding:0;max-height:250px;overflow-y:auto}
+.ccp li{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-radius:14px;cursor:pointer;font-size:.95rem;color:rgba(255,255,255,.88)}
+.ccp li:hover,.ccp li[aria-selected=true]{background:rgba(109,179,255,.2);color:#fff}
+.ccp li b{font-weight:500;color:var(--mute)}
+html[lang=ar] body,html[lang=ar] button,html[lang=ar] input{font-family:Cairo,Outfit,system-ui,sans-serif}
+html[lang=ar] h1{font-family:Cairo,system-ui,sans-serif;font-weight:700;line-height:1.25}
+html[lang=ar] *{letter-spacing:0!important;text-transform:none!important}
+html[lang=ar] .eyebrow{font-size:.85rem}
+html[dir=rtl] .ticker,html[dir=rtl] .ll,html[dir=rtl] .tloop #techLoop{direction:ltr}
+html[dir=rtl] .navbtn{padding:6px 24px 6px 6px}
+html[dir=rtl] .hbtn{padding:6px 26px 6px 6px}
+html[dir=rtl] .navbtn i svg,html[dir=rtl] .hbtn i svg,html[dir=rtl] .circ svg,html[dir=rtl] .go svg{transform:scaleX(-1)}
+html[dir=rtl] .fld svg{left:auto;right:26px}
+html[dir=rtl] .fld input{padding:0 78px 0 24px}
+html[dir=rtl] .fld.phonef>input{padding:0 22px;text-align:left;border-radius:30px 0 0 30px}
+html[dir=rtl] .ccb{padding:0 22px 0 16px;border-right:0;border-left:1px solid rgba(255,255,255,.16);border-radius:0 30px 30px 0}
+html[dir=rtl] .ccp{left:auto;right:0}
+html[dir=rtl] .go{right:auto;left:12px}
+html[dir=rtl] .fiche,html[dir=rtl] .ftop{text-align:right}
+html[dir=rtl] .wcard span{left:auto;right:10px}
+html[dir=rtl] .step::before{left:auto;right:0}
+html[dir=rtl] .line{transform-origin:right}
+html[dir=rtl] .vlist{right:auto;left:36px;padding-left:0;padding-right:14px;border-left:0;border-right:1px solid rgba(255,255,255,.4)}
+html[dir=rtl] .brand,html[dir=rtl] .fbrand{direction:ltr}
+html[dir=rtl] .copied{direction:rtl}
+@media(max-width:860px){
+.langbtn{height:36px;padding:0 12px;gap:0}
+.langbtn svg,.lb-l{display:none}.lb-s{display:inline;font-size:.9rem;font-weight:600}
+.nr{gap:8px}
+html[dir=rtl] .navbtn{padding:4px 16px 4px 4px}
+html[dir=rtl] .wcard span{right:16px;left:auto}
+html[dir=rtl] .fld input{padding:0 60px 0 20px}
+html[dir=rtl] .fld svg{right:20px;left:auto}
+html[dir=rtl] .fld.phonef>input{padding:0 16px}
+.fld.phonef{height:56px;border-radius:24px}
+.ccb{padding:0 10px 0 16px;gap:6px}
+html[dir=rtl] .ccb{padding:0 16px 0 10px}
+.fld.phonef>input{padding:0 14px;border-radius:0 24px 24px 0}
+html[dir=rtl] .fld.phonef>input{border-radius:24px 0 0 24px}
+.ccb{border-radius:24px 0 0 24px}
+html[dir=rtl] .ccb{border-radius:0 24px 24px 0}
+.ccp{width:min(330px,calc(100vw - 40px))}
+html[lang=ar] .navbtn span::before{content:"ابدأ"}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
@@ -283,32 +349,33 @@ footer{margin-top:20px}
 
 <nav class="topbar gl">
 <a class="brand" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
-<div class="mpill"><a href="#top" class="on">Home</a><a href="#services">My Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
-<a class="navbtn" href="#contact"><span>Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+<div class="mpill"><a href="#top" class="on" data-i="nav_home">Home</a><a href="#services" data-i="nav_work">My Work</a><a href="#process" data-i="nav_process">Process</a><a href="#contact" data-i="nav_contact">Contact</a></div>
+<div class="nr"><button type="button" class="langbtn" aria-label="Switch language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lb-l">العربية</span><span class="lb-s">ع</span></button>
+<a class="navbtn" href="#contact"><span data-i="nav_start">Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
 </nav>
 <nav class="tabbar" aria-label="Main">
-<a href="#top" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
-<a href="#services"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg><span>My Work</span></a>
-<a href="#process"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg><span>Process</span></a>
-<a href="#contact"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Contact</span></a>
+<a href="#top" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i="nav_home">Home</span></a>
+<a href="#services"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg><span data-i="nav_work">My Work</span></a>
+<a href="#process"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg><span data-i="nav_process">Process</span></a>
+<a href="#contact"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span data-i="nav_contact">Contact</span></a>
 </nav>
 
 <header class="frame" id="top">
 
 
 
-<div class="vlist" aria-hidden="true">MODERN<br>FAST<br>SECURE<br>SCALABLE</div>
+<div class="vlist" aria-hidden="true" data-ih="vlist">MODERN<br>FAST<br>SECURE<br>SCALABLE</div>
 
 <div class="hin">
 <div class="htop">
 <div>
-<p class="eyebrow">WEB DESIGN — DEVELOPMENT — MOBILE APPS</p>
-<h1 id="h"><span class="hl">Websites</span><span class="hl">That <em class="acc">Inspire</em></span></h1>
-<p class="hsub">We design and build modern websites that blend clean design, speed and smart technology. From your first idea to launch day, we take care of everything, so you can focus on growing your business.</p>
-<ul class="htags" aria-label="What you get"><li>Responsive design</li><li>Fast loading</li><li>SEO ready</li><li>Secure &amp; reliable</li><li>Easy to manage</li></ul>
+<p class="eyebrow" data-i="eyebrow">WEB DESIGN — DEVELOPMENT — MOBILE APPS</p>
+<h1 id="h" data-ih="h1"><span class="hl">Websites</span><span class="hl">That <em class="acc">Inspire</em></span></h1>
+<p class="hsub" data-i="hsub">We design and build modern websites that blend clean design, speed and smart technology. From your first idea to launch day, we take care of everything, so you can focus on growing your business.</p>
+<ul class="htags" aria-label="What you get"><li data-i="tag1">Responsive design</li><li data-i="tag2">Fast loading</li><li data-i="tag3">SEO ready</li><li data-i="tag4">Secure &amp; reliable</li><li data-i="tag5">Easy to manage</li></ul>
 <div class="hbtns">
-<a class="hbtn" href="#services"><span>Explore Our Work</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-<a class="hplay" href="#contact"><span class="circ"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>Get a free quote</a>
+<a class="hbtn" href="#services"><span data-i="btn_work">Explore Our Work</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+<a class="hplay" href="#contact"><span class="circ"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span data-i="btn_quote">Get a free quote</span></a>
 </div>
 </div>
 <div class="orbit"><svg class="logo-big" viewBox="113 580 720 505" aria-label="OneCode+ logo"><use href="#lg"/></svg></div>
@@ -322,36 +389,36 @@ footer{margin-top:20px}
 <section class="work" id="services">
 <div class="wglow"></div>
 <div class="wgrid">
-<h2 class="wtitle">My Work</h2>
-<p class="wsub">Websites we design and build, from the first idea to launch day.</p>
+<h2 class="wtitle" data-i="work_title">My Work</h2>
+<p class="wsub" data-i="work_sub">Websites we design and build, from the first idea to launch day.</p>
 <div class="wdetail"><h3 id="wName"></h3><p id="wDesc"></p></div>
 </div>
-<!-- To add a website: copy one <a class="wcard"> below, then change the link, image, name and text. -->
+<!-- To add a website: copy one <a class="wcard" data-ia-desc="work1"> below, then change the link, image, name and text. -->
 <div class="wcards" id="wCards">
-<a class="wcard" href="https://elegance-clothes.vercel.app/" target="_blank" rel="noopener" data-name="Elegance Clothes" data-desc="An online clothing store for men, women and kids, with easy exchanges and cash on delivery."><img src="/work/elegance-clothes.jpg" alt="Elegance Clothes website"><span>Elegance Clothes</span></a>
-<a class="wcard" href="https://mocreat.vercel.app/" target="_blank" rel="noopener" data-name="MoCreat" data-desc="A portfolio website for a freelance web developer, in Arabic and French: websites, interface design, graphic design and video editing."><img src="/work/mocreat.jpg" alt="MoCreat website"><span>MoCreat</span></a>
-<a class="wcard" href="https://coaching-elevate-site.vercel.app/" target="_blank" rel="noopener" data-name="Forge Fitness" data-desc="A website for an online fitness coaching business, with training programs, pricing and free consultation booking."><img src="/work/forge-fitness.jpg" alt="Forge Fitness website"><span>Forge Fitness</span></a>
+<a class="wcard" data-ia-desc="work2" href="https://elegance-clothes.vercel.app/" target="_blank" rel="noopener" data-name="Elegance Clothes" data-desc="An online clothing store for men, women and kids, with easy exchanges and cash on delivery."><img src="/work/elegance-clothes.jpg" alt="Elegance Clothes website"><span>Elegance Clothes</span></a>
+<a class="wcard" data-ia-desc="work3" href="https://mocreat.vercel.app/" target="_blank" rel="noopener" data-name="MoCreat" data-desc="A portfolio website for a freelance web developer, in Arabic and French: websites, interface design, graphic design and video editing."><img src="/work/mocreat.jpg" alt="MoCreat website"><span>MoCreat</span></a>
+<a class="wcard" data-ia-desc="work4" href="https://coaching-elevate-site.vercel.app/" target="_blank" rel="noopener" data-name="Forge Fitness" data-desc="A website for an online fitness coaching business, with training programs, pricing and free consultation booking."><img src="/work/forge-fitness.jpg" alt="Forge Fitness website"><span>Forge Fitness</span></a>
 </div>
-<div class="wline">Web design • Web development • E-commerce • Mobile apps • Dashboards</div>
+<div class="wline" data-i="wline">Web design • Web development • E-commerce • Mobile apps • Dashboards</div>
 </section>
 <noscript><style>.wfall{display:flex!important}</style></noscript>
 
-<section id="process"><div class="wrap"><h2 class="rv">How we work</h2>
+<section id="process"><div class="wrap"><h2 class="rv" data-i="proc_title">How we work</h2>
 <div class="steps"><div class="line"></div>
-<div class="step"><h3>1. Discover</h3><p>We learn your goals, customers and budget.</p></div>
-<div class="step"><h3>2. Design</h3><p>You review clear mockups before any code.</p></div>
-<div class="step"><h3>3. Build</h3><p>We develop, test and show progress each week.</p></div>
-<div class="step"><h3>4. Launch</h3><p>We go live and support you afterwards.</p></div>
+<div class="step"><h3 data-i="s1h">1. Discover</h3><p data-i="s1p">We learn your goals, customers and budget.</p></div>
+<div class="step"><h3 data-i="s2h">2. Design</h3><p data-i="s2p">You review clear mockups before any code.</p></div>
+<div class="step"><h3 data-i="s3h">3. Build</h3><p data-i="s3p">We develop, test and show progress each week.</p></div>
+<div class="step"><h3 data-i="s4h">4. Launch</h3><p data-i="s4p">We go live and support you afterwards.</p></div>
 </div></div>
-<div class="tloop"><p class="tl-label">Built with modern technologies</p><div id="techLoop"></div></div>
+<div class="tloop"><p class="tl-label" data-i="built_with">Built with modern technologies</p><div id="techLoop"></div></div>
 </section>
 
 <section class="contact" id="contact"><div class="wrap cgrid">
 
 <div class="cinfo">
 <div class="tile"><svg width="72" height="50" viewBox="113 580 720 505" fill="#ffffff" aria-label="OneCode+ logo"><polygon points="113,840 268,720 317,722 317,752 200,842 305,923 275,950 250,950"/><polygon points="833,845 688,727 650,755 752,843 652,917 652,950 697,950"/><polygon points="383,688 602,582 602,727 475,810 475,716 383,757"/><polygon points="520,800 595,775 595,992 468,1085 470,880"/><path d="M221 1047 L710 678 C640 740 560 800 470 878 Z"/></svg></div>
-<h2 class="rv">Let’s <span class="grad">talk</span></h2>
-<p class="s">Contact us directly or follow our work</p>
+<h2 class="rv" data-ih="talk">Let’s <span class="grad">talk</span></h2>
+<p class="s" data-i="talk_sub">Contact us directly or follow our work</p>
 <div class="socials">
 
 <a class="soc" href="https://www.instagram.com/onecode.plus" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".6" fill="#fff"/></svg></a>
@@ -370,12 +437,19 @@ footer{margin-top:20px}
 </div>
 
 <form id="orderForm" class="fiche" novalidate>
-<h3 class="ftitle">Order your website</h3>
-<label class="fld"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><input name="full_name" type="text" placeholder="Full name *" aria-label="Full name" required></label>
-<label class="fld"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m22 7-10 6L2 7"/></svg><input name="email" type="email" placeholder="Email *" aria-label="Email" required></label>
-<label class="fld"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><input name="phone" type="tel" placeholder="Phone" aria-label="Phone"></label>
-<label class="fld"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg><input name="company" type="text" placeholder="Company" aria-label="Company"></label>
-<button class="send" type="submit" id="send"><span>Send my order</span><i class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+<h3 class="ftitle" data-i="order_title">Order your website</h3>
+<label class="fld"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><input name="full_name" type="text" data-ip="ph_name" placeholder="Full name *" aria-label="Full name" autocomplete="name" maxlength="80" required></label>
+<label class="fld"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m22 7-10 6L2 7"/></svg><input name="email" type="email" data-ip="ph_email" placeholder="Email *" aria-label="Email" autocomplete="email" maxlength="160" inputmode="email" required></label>
+<div class="fld phonef" id="phoneField">
+<div class="cc" id="cc">
+<button type="button" class="ccb" id="ccBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Country code"><span id="ccIso">DZ</span><b id="ccDial" dir="ltr">+213</b><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+<div class="ccp hide" id="ccPanel"><input type="search" id="ccSearch" data-ip="ph_country" placeholder="Search country" aria-label="Search country" autocomplete="off"><ul id="ccList" role="listbox"></ul></div>
+</div>
+<input id="phoneLocal" name="phone_local" type="tel" inputmode="tel" dir="ltr" placeholder="5XXXXXXXX" aria-label="Phone" autocomplete="tel-national" maxlength="18">
+</div>
+<label class="fld"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg><input name="company" type="text" data-ip="ph_company" placeholder="Company / Business" aria-label="Company / Business" autocomplete="organization" maxlength="80"></label>
+<div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" id="hpWebsite" tabindex="-1" autocomplete="off"></label></div>
+<button class="send" type="submit" id="send"><span data-i="send">Send my order</span><i class="go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
 <div class="ok" id="ok" role="status"></div>
 </form>
 
@@ -384,24 +458,26 @@ footer{margin-top:20px}
 <div class="ftop">
 <div>
 <a class="fbrand" href="#top" aria-label="OneCode+ home"><svg aria-hidden="true"><use href="#lg"/></svg><span>OneCode<b>+</b></span></a>
-<p class="fabout">We design and build modern websites that blend clean design, speed and smart technology.</p>
+<p class="fabout" data-i="f_about">We design and build modern websites that blend clean design, speed and smart technology.</p>
 </div>
 <div>
-<h4>Services</h4>
-<ul><li>Web design</li><li>Web development</li><li>E-commerce</li><li>Mobile apps</li><li>Dashboards</li></ul>
+<h4 data-i="f_services">Services</h4>
+<ul><li data-i="sv1">Web design</li><li data-i="sv2">Web development</li><li data-i="sv3">E-commerce</li><li data-i="sv4">Mobile apps</li><li data-i="sv5">Dashboards</li></ul>
 </div>
 <div>
-<h4>Explore</h4>
-<ul><li><a href="#top">Home</a></li><li><a href="#services">My Work</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li></ul>
+<h4 data-i="f_explore">Explore</h4>
+<ul><li><a href="#top" data-i="nav_home">Home</a></li><li><a href="#services" data-i="nav_work">My Work</a></li><li><a href="#process" data-i="nav_process">Process</a></li><li><a href="#contact" data-i="nav_contact">Contact</a></li></ul>
 </div>
 </div>
-<div class="fbot">© 2026 OneCode+. All rights reserved.</div>
+<div class="fbot" data-i="copy">© 2026 OneCode+. All rights reserved.</div>
 </footer>
 
+<script src="/i18n.js"></script>
 <script src="/libs/gsap/gsap.min.js"></script>
 <script src="/libs/gsap/ScrollTrigger.min.js"></script>
 <script src="/libs/motion/motion.js"></script>
 <script src="/script.js"></script>
+<script src="/phone.js"></script>
 <script src="/logoloop.js"></script>
 <script src="/hexbg.js"></script>
 <script type="module" src="/work-init.js"></script>

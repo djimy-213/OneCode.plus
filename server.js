@@ -8,8 +8,56 @@ const app = express();
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 const SECRET = process.env.SESSION_SECRET || process.env.ADMIN_PASSWORD || '';
 
-app.use(express.json());
+app.disable('x-powered-by');
+app.set('trust proxy', 1);
+app.use((req, res, next) => {
+  res.set({
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+    'Content-Security-Policy': "frame-ancestors 'none'; base-uri 'self'; object-src 'none'"
+  });
+  next();
+});
+app.use(express.json({ limit: '10kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* ---------- small in-memory rate limiter (per visitor IP) ---------- */
+const hits = new Map();
+function limited(key, max, windowMs) {
+  const now = Date.now();
+  const list = (hits.get(key) || []).filter(t => now - t < windowMs);
+  if (list.length >= max) { hits.set(key, list); return true; }
+  list.push(now);
+  hits.set(key, list);
+  if (hits.size > 5000) { for (const [k, v] of hits) if (!v.length || now - v[v.length - 1] > windowMs) hits.delete(k); }
+  return false;
+}
+const ipOf = req => String(req.ip || req.socket.remoteAddress || 'x');
+
+/* ---------- order validation ---------- */
+const clean = v => String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f<>]/g, ' ').replace(/\s+/g, ' ').trim();
+const NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M}\s'.\-]{1,79}$/u;
+const EMAIL_RE = /^[A-Za-z0-9._%+\-]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9\-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9\-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,24}$/;
+const COMPANY_RE = /^[\p{L}\p{M}\p{N}\s&.,'\u2019\-\/()+!]{1,80}$/u;
+function validateOrder(b) {
+  const o = {
+    full_name: clean(b.full_name),
+    email: clean(b.email).toLowerCase(),
+    phone: String(b.phone || '').replace(/[\s\-().]/g, ''),
+    company: clean(b.company)
+  };
+  if (!NAME_RE.test(o.full_name)) return { code: 'name' };
+  if (o.email.length > 160 || !EMAIL_RE.test(o.email) || o.email.includes('..')) return { code: 'email' };
+  if (o.phone) {
+    if (!/^\+[1-9]\d{6,14}$/.test(o.phone)) return { code: 'phone' };
+    if (o.phone.startsWith('+213') && !/^\+213[567]\d{8}$/.test(o.phone)) return { code: 'phone' };
+  }
+  if (o.company && !COMPANY_RE.test(o.company)) return { code: 'company' };
+  return { order: o };
+}
 
 /* ---------- signed login token (works on Vercel, no memory needed) ---------- */
 function sign(value) {
@@ -63,18 +111,30 @@ async function notifyOrder(o) {
 
 /* public: save an order */
 app.post('/api/orders', async (req, res) => {
-  const { full_name, email, phone, company } = req.body;
+  const b = req.body || {};
 
-  if (!full_name || !email || !/^\S+@\S+\.\S+$/.test(email)) {
-    return res.status(400).json({ error: 'Name and a valid email are required.' });
+  /* bots: the hidden "website" field must stay empty. Pretend it worked. */
+  if (b.website) return res.json({ ok: true });
+
+  if (limited('order:' + ipOf(req), 4, 15 * 60 * 1000)) {
+    return res.status(429).json({ code: 'rate', error: 'Too many requests. Please try again later.' });
   }
 
-  const order = {
-    full_name: String(full_name).trim().slice(0, 120),
-    email: String(email).trim().slice(0, 160),
-    phone: String(phone || '').trim().slice(0, 40),
-    company: String(company || '').trim().slice(0, 120)
-  };
+  /* the form must have been open for at least 2.5 seconds (and not be stale) */
+  const age = Date.now() - Number(b.ts);
+  if (!Number.isFinite(age) || age < 2500 || age > 24 * 60 * 60 * 1000) {
+    return res.status(400).json({ code: 'fast', error: 'Please try again.' });
+  }
+
+  const v = validateOrder(b);
+  if (v.code) return res.status(400).json({ code: v.code, error: 'Please check your details and try again.' });
+  const order = v.order;
+
+  /* same email twice within 10 minutes = duplicate */
+  if (limited('dup:' + order.email, 1, 10 * 60 * 1000)) {
+    return res.status(429).json({ code: 'dup', error: 'We already received your order.' });
+  }
+
   const { error } = await supabase.from('orders').insert(order);
 
   if (error) {
@@ -88,6 +148,9 @@ app.post('/api/orders', async (req, res) => {
 
 /* admin: login */
 app.post('/api/admin/login', (req, res) => {
+  if (limited('login:' + ipOf(req), 8, 15 * 60 * 1000)) {
+    return res.status(429).json({ error: 'Too many attempts. Try again in a few minutes.' });
+  }
   const password = String(req.body.password || '');
   const a = Buffer.from(password);
   const b = Buffer.from(String(process.env.ADMIN_PASSWORD || ''));
