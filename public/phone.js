@@ -18,7 +18,7 @@
   function paint() {
     $("ccIso").textContent = cur.iso;
     $("ccDial").textContent = "+" + cur.dial;
-    local.placeholder = cur.dial === "213" ? "5XXXXXXXX" : "000 000 000";
+    local.placeholder = "000 000 000";
   }
   function fill(q) {
     q = (q || "").trim().toLowerCase().replace(/^\+/, "");
