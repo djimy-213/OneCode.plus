@@ -38,6 +38,29 @@ function requireAdmin(req, res, next) {
   next();
 }
 
+/* email me when a new order arrives (Resend). Never blocks or fails the order. */
+const esc = v => String(v || '-').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+async function notifyOrder(o) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { console.warn('RESEND_API_KEY is not set: order email skipped.'); return; }
+  const to = process.env.NOTIFY_EMAIL || 'onecode213@gmail.com';
+  const from = process.env.NOTIFY_FROM || 'OneCode+ Orders <onboarding@resend.dev>';
+  const row = (k, v) => `<tr><td style="padding:8px 14px;color:#6b7f95">${k}</td><td style="padding:8px 14px;font-weight:600">${esc(v)}</td></tr>`;
+  const html = `<div style="font-family:Arial,sans-serif;max-width:480px;margin:auto;border:1px solid #dbe6f3;border-radius:16px;overflow:hidden">
+<div style="background:linear-gradient(90deg,#2f6bff,#1f3fd0);color:#fff;padding:18px 22px;font-size:18px;font-weight:700">New order on OneCode+</div>
+<table style="width:100%;border-collapse:collapse;font-size:15px">${row('Name', o.full_name)}${row('Email', o.email)}${row('Phone', o.phone)}${row('Company', o.company)}</table>
+<div style="padding:14px 22px;color:#6b7f95;font-size:13px">Manage it in your dashboard: /admin.html</div></div>`;
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from, to: [to], reply_to: o.email, subject: 'New order from ' + o.full_name, html })
+    });
+    if (!r.ok) console.error('Order email failed:', r.status, await r.text());
+  } catch (e) { console.error('Order email error:', e.message); }
+}
+
 /* public: save an order */
 app.post('/api/orders', async (req, res) => {
   const { full_name, email, phone, company } = req.body;
@@ -46,18 +69,20 @@ app.post('/api/orders', async (req, res) => {
     return res.status(400).json({ error: 'Name and a valid email are required.' });
   }
 
-  const { error } = await supabase.from('orders').insert({
+  const order = {
     full_name: String(full_name).trim().slice(0, 120),
     email: String(email).trim().slice(0, 160),
     phone: String(phone || '').trim().slice(0, 40),
     company: String(company || '').trim().slice(0, 120)
-  });
+  };
+  const { error } = await supabase.from('orders').insert(order);
 
   if (error) {
     console.error(error);
     return res.status(500).json({ error: 'Could not save your order.' });
   }
 
+  await notifyOrder(order); /* awaited so it also finishes on Vercel */
   res.json({ ok: true });
 });
 
