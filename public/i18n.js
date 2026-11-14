@@ -58,7 +58,7 @@
   each("data-ih", function (el, k) { EN[k] = el.innerHTML; });
   each("data-ip", function (el, k) { EN[k] = el.getAttribute("placeholder") || el.getAttribute("aria-label"); });
   each("data-ia-desc", function (el, k) { EN[k] = el.getAttribute("data-desc"); });
-  EN.lang_btn = "العربية"; EN.lang_short = "ع";
+  EN.lang_btn = "العربية"; EN.lang_short = "AR";
   EN.m_name = "Please enter your full name (letters only, 2 to 80 characters).";
   EN.m_email = "Please enter a valid email address.";
   EN.m_phone = "This phone number is not valid for the selected country.";

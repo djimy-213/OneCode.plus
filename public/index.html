@@ -283,6 +283,7 @@ footer{margin-top:20px}
 .ccp.hide{display:none}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .fld.phonef{display:flex;align-items:stretch;height:68px;border-radius:30px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(180deg,#0f3563,#0a2d52);box-shadow:0 10px 24px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+html[dir=rtl] .fld.phonef,.fld.phonef{direction:ltr}
 .fld.phonef:focus-within{outline:2px solid var(--sky);outline-offset:2px}
 .fld.phonef>input{flex:1;min-width:0;height:100%;padding:0 22px;border:0;border-radius:0 30px 30px 0;background:none;box-shadow:none;outline:0;color:#fff;font:inherit;font-size:1.05rem}
 .fld.phonef>input:focus{outline:0}
@@ -308,9 +309,6 @@ html[dir=rtl] .hbtn{padding:6px 26px 6px 6px}
 html[dir=rtl] .navbtn i svg,html[dir=rtl] .hbtn i svg,html[dir=rtl] .circ svg,html[dir=rtl] .go svg{transform:scaleX(-1)}
 html[dir=rtl] .fld svg{left:auto;right:26px}
 html[dir=rtl] .fld input{padding:0 78px 0 24px}
-html[dir=rtl] .fld.phonef>input{padding:0 22px;text-align:left;border-radius:30px 0 0 30px}
-html[dir=rtl] .ccb{padding:0 22px 0 16px;border-right:0;border-left:1px solid rgba(255,255,255,.16);border-radius:0 30px 30px 0}
-html[dir=rtl] .ccp{left:auto;right:0}
 html[dir=rtl] .go{right:auto;left:12px}
 html[dir=rtl] .fiche,html[dir=rtl] .ftop{text-align:right}
 html[dir=rtl] .wcard span{left:auto;right:10px}
@@ -327,14 +325,10 @@ html[dir=rtl] .navbtn{padding:4px 16px 4px 4px}
 html[dir=rtl] .wcard span{right:16px;left:auto}
 html[dir=rtl] .fld input{padding:0 60px 0 20px}
 html[dir=rtl] .fld svg{right:20px;left:auto}
-html[dir=rtl] .fld.phonef>input{padding:0 16px}
 .fld.phonef{height:56px;border-radius:24px}
 .ccb{padding:0 10px 0 16px;gap:6px}
-html[dir=rtl] .ccb{padding:0 16px 0 10px}
 .fld.phonef>input{padding:0 14px;border-radius:0 24px 24px 0}
-html[dir=rtl] .fld.phonef>input{border-radius:24px 0 0 24px}
 .ccb{border-radius:24px 0 0 24px}
-html[dir=rtl] .ccb{border-radius:0 24px 24px 0}
 .ccp{width:min(330px,calc(100vw - 40px))}
 html[lang=ar] .navbtn span::before{content:"ابدأ"}
 }
@@ -350,7 +344,7 @@ html[lang=ar] .navbtn span::before{content:"ابدأ"}
 <nav class="topbar gl">
 <a class="brand" href="#top"><svg><use href="#lg"/></svg><span class="t">OneCode<span class="grad">+</span></span></a>
 <div class="mpill"><a href="#top" class="on" data-i="nav_home">Home</a><a href="#services" data-i="nav_work">My Work</a><a href="#process" data-i="nav_process">Process</a><a href="#contact" data-i="nav_contact">Contact</a></div>
-<div class="nr"><button type="button" class="langbtn" aria-label="Switch language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lb-l">العربية</span><span class="lb-s">ع</span></button>
+<div class="nr"><button type="button" class="langbtn" aria-label="Switch language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lb-l">العربية</span><span class="lb-s">AR</span></button>
 <a class="navbtn" href="#contact"><span data-i="nav_start">Start a Project</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
 </nav>
 <nav class="tabbar" aria-label="Main">
